@@ -34,7 +34,7 @@ end
 puts "Loading raw media data from #{CATEGORY_FILE}"
 categories_failures = []
 
-CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
   category = Category.new
   category.name = row['name']
   successful = category.save
