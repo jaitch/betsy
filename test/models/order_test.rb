@@ -1,7 +1,16 @@
 require "test_helper"
 
 describe Order do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe 'validations' do
+    it 'can be made with valid input' do
+    end
+
+    it 
+  end
+
+  describe 'relations' do
+  end
+
+  describe 'custom methods' do
+  end
 end
