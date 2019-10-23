@@ -8,8 +8,8 @@
 
 require 'csv'
 
-MERCHANT_FILE = Rails.root.join('db', 'merchants-seeds.csv')
-CATEGORY_FILE = Rails.root.join('db', 'categories-seeds.csv')
+MERCHANT_FILE = Rails.root.join('db', 'seed_data', 'merchants-seeds.csv')
+CATEGORY_FILE = Rails.root.join('db', 'seed_data', 'categories-seeds.csv')
 
 puts "Loading raw media data from #{MERCHANT_FILE}"
 
@@ -33,15 +33,15 @@ end
 puts "Loading raw media data from #{CATEGORY_FILE}"
 categories_failures = []
 
-CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
   category = Category.new
   category.name = row['name']
   successful = category.save
   
   if !successful
-    category_failures << category
-    puts "Failed to save merchant: #{category.errors.inspect}"
+    categories_failures << category
+    puts "Failed to save category: #{category.errors.inspect}"
   else
-    puts "Created merchant: #{category.inspect}"
+    puts "Created category: #{category.inspect}"
   end
 end

@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :merchant
   has_many :reviews
-  belongs_to_and_has_many :categories
+  has_and_belongs_to_many :categories
   has_many :orders, through :orderproduct
   
   validates :name, presence: true
