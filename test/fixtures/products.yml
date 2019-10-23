@@ -1,0 +1,37 @@
+batman:
+  name: "batman"
+  price: 5.99
+  category: puppy, superhero
+  stock: 5
+  description: "not robin"
+  photo: "url_string1"
+  retire: false
+  merchant_id: mariya
+magician:
+  name: "magician"
+  price: 10.99
+  category: "cat"
+  stock: 1
+  description: "abracadabra!"
+  photo: "url_string2"
+  retire: true
+  merchant_id: ga-young
+clown:
+  name: "clown"
+  price: 1.99
+  category: kitty, cat
+  stock: 20
+  description: "clown costume for felines"
+  photo: "url_string3"
+  retire: false
+  merchant_id: julia
+taco:
+  name: "taco"
+  price: 3.99
+  category: dog, puppy
+  stock: 3
+  description: "taco costume for canines"
+  photo: "url_string4"
+  retire: true
+  merchant_id: janice
+  

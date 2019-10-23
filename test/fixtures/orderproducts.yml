@@ -1,0 +1,24 @@
+op1:
+  quantity: 3
+  product_id: magician
+  order_id: d
+op2:
+  quantity: 1
+  product_id: batman
+  order_id: d
+op3:
+  quantity: 4
+  product_id: magician
+  order_id: a
+op4:
+  quantity: 2
+  product_id: taco
+  order_id: b
+op5:
+  quantity: 9
+  product_id: clown
+  order_id: c
+op6:
+  quantity: 5
+  product_id: taco
+  order_id: c
