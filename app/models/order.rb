@@ -1,3 +1,4 @@
 class Order < ApplicationRecord
-  has_many :products through :orderproduct
+  has_many :orderproduct
+  has_many :products, through: :orderproduct
 end
