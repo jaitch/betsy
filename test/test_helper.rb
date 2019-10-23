@@ -8,6 +8,7 @@ require 'rails/test_help'
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/reporters'
+require 'minitest/rails'
 require 'minitest/pride'
 
 class ActiveSupport::TestCase
