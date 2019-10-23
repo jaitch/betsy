@@ -1,0 +1,16 @@
+one:
+  category: puppy, superhero
+  product: batman
+two:
+  category: puppy, dog
+  product: taco
+three:
+  category: kitty
+  product: clown
+four:
+  category: cat, superhero
+  product: magician
+five:
+  category: kitty, puppy
+  product: batman
+  
