@@ -1,0 +1,11 @@
+class Product < ApplicationRecord
+  belongs_to :merchant
+  has_many :reviews
+  belongs_to_and_has_many :categories
+  has_many :orders, through :orderproduct
+  
+  validates :name, presence: true
+  validates :name, uniqueness: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :stock, presence: true, numericality: { only_integer: true, greater_than: -1 }
+end
