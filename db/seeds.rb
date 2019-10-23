@@ -10,6 +10,7 @@ require 'csv'
 
 MERCHANT_FILE = Rails.root.join('db', 'seed_data', 'merchants-seeds.csv')
 CATEGORY_FILE = Rails.root.join('db', 'seed_data', 'categories-seeds.csv')
+PRODUCT_FILE = Rails.root.join('db', 'seed_data', 'products.csv')
 
 puts "Loading raw media data from #{MERCHANT_FILE}"
 
@@ -43,5 +44,28 @@ CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
     puts "Failed to save category: #{category.errors.inspect}"
   else
     puts "Created category: #{category.inspect}"
+  end
+end
+
+puts "Loading raw media data from #{PRODUCT_FILE}"
+
+products_failures = []
+
+CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
+  product = Product.new
+  product.name = row['name']
+  product.price = row['price']
+  product.stock = row['stock']
+  product.description = row['description']
+  product.photo = row['photo']
+  product.retire = row['retire']
+  product.merchant_id = row['merchant_id']
+  successful = product.save
+  
+  if !successful
+    products_failures << product
+    puts "Failed to save merchant: #{product.errors.inspect}"
+  else
+    puts "Created merchant: #{product.inspect}"
   end
 end
