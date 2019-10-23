@@ -64,8 +64,8 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   
   if !successful
     products_failures << product
-    puts "Failed to save merchant: #{product.errors.inspect}"
+    puts "Failed to save product: #{product.errors.inspect}"
   else
-    puts "Created merchant: #{product.inspect}"
+    puts "Created product: #{product.inspect}"
   end
 end
