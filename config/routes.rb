@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :products
   
   resources :merchants
+
   get "/login", to: "merchants#login_form", as: "login"
   post "/login", to: "merchants#login"
   post "/logout", to: "merchants#logout", as: "logout"

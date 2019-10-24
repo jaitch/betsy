@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
   end
   
   def create
-    @product = Product.new(name: params[:product][:name], price: params[:product][:price], stock: params[:product][:stock], description: params[:product][:description], photo: params[:product][:photo], retire: params[:product][:retire], merchant_id: 1)
+    @product = Product.new(name: params[:product][:name], price: params[:product][:price], stock: params[:product][:stock], description: params[:product][:description], photo: params[:product][:photo], retire: params[:product][:retire], merchant_id: session[:merchant_id])
     if @product.save 
       flash[:success] = "Your product has been added."
       redirect_to root_path
