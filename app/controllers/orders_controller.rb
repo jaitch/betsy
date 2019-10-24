@@ -5,6 +5,16 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+
+    if @order.save
+      flash[:success] = "Order submitted successfully!"
+      redirect_to order_path(@order.id)
+      return
+    else
+      flash.now[:failure] = "Order failed!"
+      render :new
+      return
+    end
   end
 
   def delete
