@@ -29,7 +29,7 @@
       <% if session[:merchant_id] == nil %>
       <%= link_to "Log in", login_path %>
     <% else %>
-      Logged in as: <%= User.find_by(id: session[:merchant_id]).name %>
+      Logged in as: <%= Merchant.find_by(id: session[:merchant_id]).username %>
       <%= link_to "Log out", logout_path, method: :post %>
     <% end %>
 

@@ -14,21 +14,22 @@ class MerchantsController < ApplicationController
   
   def login
     username = params[:merchant][:username]
+    email = params[:merchant][:email]
     merchant = Merchant.find_by(username: username)
     if merchant
-      session[:merchant_id] = Merchant.id
+      session[:merchant_id] = merchant.id
       flash[:success] = "Successfully logged in as returning merchant #{username}"
       redirect_to root_path
       return
     else
-      merchant = Merchant.new(username: username)
-      if Merchant.save
-        session[:merchant_id] = Merchant.id
+      merchant = Merchant.new(username: username, email: email)
+      if merchant.save
+        session[:merchant_id] = merchant.id
         flash[:success] = "Successfully logged in as new merchant #{username}"
         redirect_to root_path
         return
       else
-        flash[:failure] = "Username cannot be blank"
+        flash[:failure] = "Could not create new merchant"
         redirect_to login_path
         return
       end
