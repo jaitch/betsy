@@ -1,7 +1,9 @@
 require "test_helper"
 
 describe Orderproduct do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  it 'can set the products' do
+    order = Order.new
+    order.products << products(:magician)
+    order.products.first.id.must_equal products(:magician).id
+  end
 end
