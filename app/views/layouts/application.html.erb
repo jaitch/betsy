@@ -25,6 +25,20 @@
   </header>
 
   <body>
+
+      <% if session[:merchant_id] == nil %>
+      <%= link_to "Log in", login_path %>
+    <% else %>
+      Logged in as: <%= Merchant.find_by(id: session[:merchant_id]).username %>
+      <%= link_to "Log out", logout_path, method: :post %>
+    <% end %>
+
+    <section class="flash">
+    <% flash.each do |name, message| %>
+      <div class="<%= name %>"><%= message %></div>
+    <% end %>
+    </section>
+
     <%= yield %>
   </body>
 </html>
