@@ -1,5 +1,5 @@
 a:
-  state: "paid"
+  status: "paid"
   name: "Jane Doe"
   email: "jane@petsy.com"
   mailing_address: "123 Main Street"
@@ -8,7 +8,7 @@ a:
   cc_number: "12345"
   cc_exp: "12/34/56"
 b:
-  state: "paid"
+  status: "paid"
   name: "Dane Joe"
   email: "dane@petsy.com"
   mailing_address: "135 Main Street"
@@ -17,7 +17,7 @@ b:
   cc_number: "13245"
   cc_exp: "11/34/56"
 c:
-  state: "paid"
+  status: "paid"
   name: "Zane Ko"
   email: "zane@petsy.com"
   mailing_address: "323 Main Street"
@@ -26,7 +26,7 @@ c:
   cc_number: "12347"
   cc_exp: "12/01/56"
 d:
-  state: "paid"
+  status: "paid"
   name: "Lane Foe"
   email: "lane@petsy.com"
   mailing_address: "987 Main Street"
@@ -34,4 +34,3 @@ d:
   name_on_cc: "Lane X. Foe"
   cc_number: "99945"
   cc_exp: "01/30/56"
-  

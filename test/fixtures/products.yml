@@ -5,7 +5,7 @@ batman:
   description: "not robin"
   photo: "url_string1"
   retire: false
-  merchant_id: mariya
+  merchant: mariya
 magician:
   name: "magician"
   price: 10.99
@@ -13,7 +13,7 @@ magician:
   description: "abracadabra!"
   photo: "url_string2"
   retire: true
-  merchant_id: ga-young
+  merchant: ga-young
 clown:
   name: "clown"
   price: 1.99
@@ -21,7 +21,7 @@ clown:
   description: "clown costume for felines"
   photo: "url_string3"
   retire: false
-  merchant_id: julia
+  merchant: julia
 taco:
   name: "taco"
   price: 3.99
@@ -29,4 +29,4 @@ taco:
   description: "taco costume for canines"
   photo: "url_string4"
   retire: true
-  merchant_id: janice
+  merchant: janice
