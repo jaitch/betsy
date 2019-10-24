@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :orders#, except: [:put]
-  get '/orders/:id/checkout', to: 'orders#checkout', as 'checkout'
+  get '/orders/:id/checkout', to: 'orders#checkout', as: 'checkout'
 
   root "homepages#index"
 
