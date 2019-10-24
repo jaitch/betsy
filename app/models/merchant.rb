@@ -2,10 +2,14 @@ class Merchant < ApplicationRecord
   has_many :products
   
   validates :username, presence: true
-  validates :username, uniqueness: true
   
   validates :email, presence: true
   validates :email, uniqueness: true
+  
+  validates :uid, presence: true
+  validates :uid, uniqueness: true
+  
+  validates :provider, presence: true
   
   
   def self.build_from_github(auth_hash)
