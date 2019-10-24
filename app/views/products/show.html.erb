@@ -1,2 +1,16 @@
 <%= @product.name%>
-<a class="badge badge-pill badge-info" href="/cart/:id/add_item">Add to Cart</a>
+<% if cur_order.nil? %>
+  <% @products.each do |product| %>
+  <%= link_to product.name, product_path(product.id)%>
+  <a class="badge badge-pill badge-info" href="/orders/new">Add to Cart</a>
+  <br>
+  <% end %>
+
+  <% elsif cur_order.nil? == false %>
+  <% @products.each do |product| %>
+  <%= link_to product.name, product_path(product.id)%>
+  <a class="badge badge-pill badge-info" href="/orders/:id/update">Add to Cart</a>
+  <br>
+  <% end %>
+
+<% end %>

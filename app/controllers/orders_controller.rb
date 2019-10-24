@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+
+  def show; end
+
   def new
     @order = Order.new
   end
@@ -7,18 +10,35 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     if @order.save
-      flash[:success] = "Order submitted successfully!"
-      redirect_to order_path(@order.id)
+      flash[:success] = "Item added to your shopping cart."
+      redirect_to products_path
       return
     else
-      flash.now[:failure] = "Order failed!"
+      flash.now[:failure] = "Item not added!"
       render :new
+      return
+    end
+  end
+
+  def edit ; end
+
+  def update
+    if @order.update(order_params)
+      flash[:success] = "Item added to your shopping cart."
+      redirect_to products_path
+    else
+      flash.now[:failure] = "Item not added!"
+      render :edit
       return
     end
   end
 
   def delete
   end
+
+def checkout
+end
+
 
   private
   def order_params
@@ -32,7 +52,7 @@ class OrdersController < ApplicationController
   def if_order_missing
     if @order.nil?
       flash[:error] = "Order with id #{params[:id]} was not found!"
-      redirect_to works_path
+      redirect_to products_path
       return
     end
   end
