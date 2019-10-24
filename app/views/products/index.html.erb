@@ -1,5 +1,6 @@
 <h1>Products</h1>
 <% @products.each do |product| %>
   <%= link_to product.name, product_path(product.id)%>
+  <%= button_to 'Add to Cart', cart_path(product.id), method: :get%>
   <br>
 <% end %>

@@ -19,12 +19,22 @@
       <li class="nav-item">
       <%= link_to "View All Products", root_path, class: "nav-link" %>
       </li>
+      <li class="nav-item">
+      <%= link_to "Checkout", new_order_path, class: "nav-link" %>
+      <li class="nav-item">
+      <%= link_to "Cart", order_path(:id), class: "nav-link" %>
+      </li>
     </ul>
   </div>
 </nav>
   </header>
 
   <body>
+    <section class="flash">
+    <% flash.each do |name, message| %>
+      <div class="<%= name %>"><%= message %></div>
+    <% end %>
+  </section>
     <%= yield %>
   </body>
 </html>
