@@ -8,32 +8,59 @@ class MerchantsController < ApplicationController
   
   def show ; end
   
-  def login_form
-    @merchant = Merchant.new
-  end
+  # def login_form
+  #   @merchant = Merchant.new
+  # end
   
-  def login
-    username = params[:merchant][:username]
-    email = params[:merchant][:email]
-    merchant = Merchant.find_by(username: username)
+  # def login
+  #   merchantname = params[:merchant][:merchantname]
+  #   email = params[:merchant][:email]
+  #   merchant = Merchant.find_by(merchantname: merchantname)
+  #   if merchant
+  #     session[:merchant_id] = merchant.id
+  #     flash[:success] = "Successfully logged in as returning merchant #{merchantname}"
+  #     redirect_to root_path
+  #     return
+  #   else
+  #     merchant = Merchant.new(merchantname: merchantname, email: email)
+  #     if merchant.save
+  #       session[:merchant_id] = merchant.id
+  #       flash[:success] = "Successfully logged in as new merchant #{merchantname}"
+  #       redirect_to root_path
+  #       return
+  #     else
+  #       flash[:failure] = "Could not create new merchant"
+  #       redirect_to login_path
+  #       return
+  #     end
+  #   end
+  # end
+  
+  def create
+    auth_hash = request.env["omniauth.auth"]
+    
+    merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
     if merchant
-      session[:merchant_id] = merchant.id
-      flash[:success] = "Successfully logged in as returning merchant #{username}"
-      redirect_to root_path
-      return
+      flash[:success] = "Logged in as returning merchant #{merchant.username}"
     else
-      merchant = Merchant.new(username: username, email: email)
+      merchant = Merchant.build_from_github(auth_hash)
       if merchant.save
-        session[:merchant_id] = merchant.id
-        flash[:success] = "Successfully logged in as new merchant #{username}"
-        redirect_to root_path
-        return
+        flash[:success] = "Logged in as new merchant #{merchant.username}"
       else
-        flash[:failure] = "Could not create new merchant"
-        redirect_to login_path
-        return
+        flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
+        return redirect_to root_path
       end
     end
+    
+    session[:merchant_id] = merchant.id
+    return redirect_to root_path
+  end
+  
+  def destroy
+    session[:merchant_id] = nil
+    flash[:success] = "Successfully logged out!"
+    
+    redirect_to root_path
   end
   
   def current
@@ -45,16 +72,16 @@ class MerchantsController < ApplicationController
     # return @current_merchant
   end
   
-  def logout
-    session[:merchant_id] = nil
-    flash[:success] = "You have been sucessfully logged out"
-    redirect_to root_path
-  end
+  # def logout
+  #   session[:merchant_id] = nil
+  #   flash[:success] = "You have been sucessfully logged out"
+  #   redirect_to root_path
+  # end
   
   private
   
   def merchant_params
-    return params.require(:merchant).permit(:username, :email)
+    return params.require(:merchant).permit(:username, :email, :provider, :uid)
   end
   
   def find_merchant
