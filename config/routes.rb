@@ -4,5 +4,13 @@ Rails.application.routes.draw do
   
   root "homepages#index"
   
+  get '/cart/:id', to: 'application#add_to_cart' , as: 'cart'
+  
   resources :products
+  
+  resources :merchants
+  get "/login", to: "merchants#login_form", as: "login"
+  post "/login", to: "merchants#login"
+  post "/logout", to: "merchants#logout", as: "logout"
+  get "/merchants/current", to: "merchants#current", as: "current_merchant"
 end

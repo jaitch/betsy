@@ -1,0 +1,33 @@
+<h3> <%= verb_name %> Your Order! </h3>
+
+<h4> Cart Contents: </h4>
+<ol> <% @order.products.each do |product| %>
+  <li> <%= product.name %>
+  <span> Quantity: <%= product.order_products.quantity %></span>
+  <!-- change quantity--drop-down? form field? -->
+  <span> <%= button_to 'Delete Item', order_path, method: :delete %> </span>
+  </li>
+<% end %>
+</ol>
+
+<h4> Purchaser Information: </h4>
+<%= form_with model: @order do |f| %>
+  <%= f.label 'Name: '%>
+  <%= f.text_field :name %>
+  <%= f.label 'Email Address: '%>
+  <%= f.text_field :email %>
+  <%= f.label 'Mailing Address: '%>
+  <%= f.text_field :mailing_address %>
+  <%= f.label 'Zip Code: '%>
+  <%= f.text_field :zip %>
+  <%= f.label 'Name on Credit Card: '%>
+  <%= f.text_field :name_on_cc %>
+  <%= f.label 'Credit Card Number: '%>
+  <%= f.text_field :cc_number %>
+  <%= f.label 'Credit Card Expiration Date: '%>
+  <%= f.text_field :cc_exp %>
+  <%= f.label 'Credit Card CVC: '%>
+  <%= f.text_field :cc_cvc %>
+
+  <%= f.submit "Checkout" %>
+<% end %>

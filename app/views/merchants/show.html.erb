@@ -1,0 +1,13 @@
+<h2>Merchant:<%= @merchant.username %></h2>
+<ul>
+  <% @merchant.products.each do |product| %>
+  <li> Product name: <%= product.name %> </li>
+    <ul>
+      <li> Price: <%= product.price %> </li>
+      <li> Stock: <%= product.stock %> </li>
+      <li> Description: <%= product.description %> </li>
+      <li> Retire: <%= product.retire %> </li> 
+      <%# link to product retire path later %>
+    </ul>
+  <% end %>
+</ul>
