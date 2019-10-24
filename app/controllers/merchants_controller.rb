@@ -42,6 +42,7 @@ class MerchantsController < ApplicationController
       flash[:error] = "You must be logged in to do that"
       redirect_to root_path
     end
+    # return @current_merchant
   end
   
   def logout
