@@ -35,11 +35,10 @@
 
   <body>
 
-    <% if session[:merchant_id] == nil %>
-      <%= link_to "Log in", login_path %>
+    <% if session[:merchant_id] %>
+      <%= link_to "Log out", logout_path, method: "delete" %>
     <% else %>
-      Logged in as: <%= Merchant.find_by(id: session[:merchant_id]).username %>
-      <%= link_to "Log out", logout_path, method: :post %>
+      <%= link_to "Login with Github", github_login_path %>
     <% end %>
 
     <section class="flash">
@@ -49,5 +48,6 @@
     </section>
 
     <%= yield %>
+
   </body>
 </html>
