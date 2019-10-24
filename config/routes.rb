@@ -4,12 +4,9 @@ Rails.application.routes.draw do
 
   root "homepages#index"
 
-
-
   resources :products
 
-  resources :homepages
-  get '/homepages/cart/add_item', to: '/homepages#add_item', as: 'cart_add'
+
   resources :merchants
   get "/login", to: "merchants#login_form", as: "login"
   post "/login", to: "merchants#login"
