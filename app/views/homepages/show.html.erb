@@ -1,0 +1,11 @@
+<h3> Cart Contents </h3>
+<% orderproducts = Orderproduct.all%>
+<ul>
+<% orderproducts.each do |line_item| %>
+  <li>
+  <%= line_item.product %>
+  Quantity:
+  <%= line_item.quantity %>
+  </li>
+  <%end%>
+</ul>
