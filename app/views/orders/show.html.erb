@@ -5,10 +5,17 @@
 <% @order.products.each do |product| %>
 <li> <%= product.name %>
 <br>
-Change quantity: <%= %>
-[make drop down box that reflects quantity available?]
+Change quantity:
+<select>
+<% x = 2%>
+<% until x > product.stock %>
+<option value=x> <%=x%> </option>
+<% x += 1 %>
+<%end%>
+</select>
 </li>
 <% end %>
 </ol>
 
-<%= button_to 'Checkout', edit_order_path %>
+<%= button_to 'Checkout', edit_order_path(@order), method: :get %>
+<!--<a class="btn btn-primary" href=<%=edit_order_path(@order)%>> Checkout </a> -->
