@@ -80,7 +80,7 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
 
   CSV.foreach(ORDER_FILE, :headers => true) do |row|
     order = Order.new
-    order.name = row['order']
+    order.name = row['name']
     successful = order.save
 
     if !successful
