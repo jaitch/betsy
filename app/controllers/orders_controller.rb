@@ -15,6 +15,12 @@ class OrdersController < ApplicationController
     orderproduct = Orderproduct.new(order_id: @order.id, product_id: params[:product][:id], quantity: 1)
   end
 
+  def delete_item
+    orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: product.id)
+    orderproduct.destroy
+    redirect_to order_path
+  end
+
   def edit ; end
 
 
