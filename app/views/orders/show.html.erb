@@ -1,17 +1,21 @@
 <h3> Contents of Your Shopping Cart: </h3>
-
+<% orderproducts = Orderproduct.where(order_id: @order.id) %>
 <ol>
 
-<% @order.products.each do |product| %>
-<li> <%= product.name %>
+<% orderproducts.each do |orderproduct| %>
+<li> <%= orderproduct.product.name %>
 <br>
-Change quantity:
+Quantity:
 <select>
-<% x = 2%>
-<% until x > product.stock %>
-<option value=x> <%=x%> </option>
-<% x += 1 %>
-<%end%>
+  <% x = 1 %>
+    <% until x > orderproduct.product.stock %>
+      <% if x == orderproduct.quantity %>
+        <option value=x selected> <%=x%> </option>
+      <% else %>
+        <option value=x > <%=x%> </option>
+      <% end %>
+    <% x += 1 %>
+  <%end%>
 </select>
 </li>
 <% end %>
