@@ -1,14 +1,5 @@
 <h3> <%= verb_name %> Your Order! </h3>
 
-<h4> Cart Contents: </h4>
-<ol> <% @order.products.each do |product| %>
-  <li> <%= product.name %>
-  <span> Quantity: <%= product.order_products.quantity %></span>
-  <!-- change quantity--drop-down? form field? -->
-  <span> <%= button_to 'Delete Item', order_path, method: :delete %> </span>
-  </li>
-<% end %>
-</ol>
 
 <h4> Purchaser Information: </h4>
 <%= form_with model: @order do |f| %>

@@ -1,7 +1,6 @@
 <h3> Contents of Your Shopping Cart: </h3>
 <% orderproducts = Orderproduct.where(order_id: @order.id) %>
 <ol>
-
 <% orderproducts.each do |orderproduct| %>
 <li> <%= orderproduct.product.name %>
 <br>
