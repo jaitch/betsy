@@ -2,6 +2,6 @@
 <% @products.each do |product| %>
   <%= link_to product.name, product_path(product.id)%>
 <!--  <a class="badge badge-pill badge-info" href="/cart/:id">Add to Cart</a> -->
-<%= button_to 'Add to Cart', cart_path(product.id), method: :get%>
+<%= button_to 'Add to Cart', product_cart_path(product.id), method: :get%>
   <br>
 <% end %>

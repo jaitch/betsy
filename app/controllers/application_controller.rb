@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
   def add_item
     order = current_order
-    product = Product.find(params[:product][:product_id])
+    product = Product.find(params[:product_id])
     if product.stock < 1
       flash.now[:failure] = "Out of stock. Sorry!"
       render products_path

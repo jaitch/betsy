@@ -5,9 +5,9 @@ Rails.application.routes.draw do
 
   root "homepages#index"
 
-  get '/cart/:id', to: 'application#add_to_cart' , as: 'cart'
-
-  resources :products
+  resources :products do
+    get '/cart', to: 'application#add_item' , as: 'cart'
+  end
 
   resources :merchants
 
