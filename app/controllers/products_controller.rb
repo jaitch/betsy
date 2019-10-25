@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
   end
   
   def create
-    @product = Product.new(name: params[:product][:name], price: params[:product][:price], stock: params[:product][:stock], description: params[:product][:description], photo: params[:product][:photo], retire: params[:product][:retire], merchant_id: session[:merchant_id])
+    @product = Product.new(product_params.merge(merchant_id: session[:merchant_id])) # merge product params with session based ones
     if @product.save 
       flash[:success] = "Your product has been added."
       redirect_to root_path
@@ -28,5 +28,11 @@ class ProductsController < ApplicationController
       render :new
       return
     end
+  end
+
+  private 
+
+  def product_params
+    params.require(:product).permit(:name, :price, :stock, :description, :photo, :retire, category_ids: [])
   end
 end
