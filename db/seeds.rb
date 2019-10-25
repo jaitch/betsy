@@ -13,6 +13,7 @@ CATEGORY_FILE = Rails.root.join('db', 'seed_data', 'categories-seeds.csv')
 PRODUCT_FILE = Rails.root.join('db', 'seed_data', 'products.csv')
 ORDERPRODUCT_FILE = Rails.root.join('db', 'seed_data', 'orderproducts-seeds.csv')
 ORDER_FILE = Rails.root.join('db', 'seed_data', 'orders-seeds.csv')
+REVIEW_FILE = Rails.root.join('db', 'seed_data', 'reviews.csv')
 
 puts "Loading raw media data from #{MERCHANT_FILE}"
 
@@ -91,6 +92,8 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
     end
   end
 
+  puts "Loading raw media data from #{ORDERPRODUCT_FILE}"
+
   orderproducts_failures = []
 
   CSV.foreach(ORDERPRODUCT_FILE, :headers => true) do |row|
@@ -108,5 +111,24 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
     end
   end
 
+  puts "Loading raw media data from #{REVIEW_FILE}"
+
+  review_failures = []
+
+  CSV.foreach(REVIEW_FILE, :headers => true) do |row|
+    review = Review.new
+    review.product_id = row['product_id']
+    review.rating = row['rating']
+    review.text = row['text']
+
+    successful = review.save
+
+    if !successful
+      review_failures << review
+      puts "Failed to save review: #{review.errors.inspect}"
+    else
+      puts "Created review: #{review.inspect}"
+    end
+  end
 
 end

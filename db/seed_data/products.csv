@@ -2,5 +2,6 @@ name,price,stock,description,photo,retire,merchant_id
 "Hot dog",25.50,12,"Fido will look good enough to eat in this weiner suit!","photo1",false,1
 "Lion's mane",18,25,"Rawr! This costume will make your dog the king of the savanna.","photo2",false,2
 "Unicorn horn",14,78,"Your cat or dog will look majestic in this delightful unicorn horn. (No unicorns were harmed to make this product.)","photo3",false,3
-"Viking ship",125,3,"Your llama will be the center of the drama in this stunning viking ship costume.","photo4",false,4
+"Viking ship",125,3,"Your llama will bring the drama in this stunning viking ship costume.","photo4",false,4
 "Baby shark",18,4,"Everybody get off the beach, this baby shark's got teeth!","photo5",false,1
+"Canine princess",35,5,"Fido will be the belle of the ball in this fabulous confection.","photo6",false,2
