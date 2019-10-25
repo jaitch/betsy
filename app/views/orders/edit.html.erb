@@ -4,6 +4,8 @@
 <% items = Orderproducts.where(@order_id) %>
 <% item.each do |item| %>
 <li> <%= item.product.name %>
+Change quantity: <%= %>
+[make drop down box that reflects quantity available?]
 </li>
 <% end %>
 </ol>
