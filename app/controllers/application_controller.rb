@@ -24,3 +24,4 @@ class ApplicationController < ActionController::Base
       redirect_to products_path
     end
   end
+end
