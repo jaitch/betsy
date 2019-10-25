@@ -15,11 +15,15 @@ class ApplicationController < ActionController::Base
       flash.now[:failure] = "Out of stock. Sorry!"
       render products_path
     else
+      if Orderproduct.find_by(order_id: session[:order_id], product_id: product.id) != nil
+        cur_orderproduct = Orderproduct.find_by(order_id: session[:order_id], product_id: product.id)
+        cur_orderproduct.quantity += 1
+      else
       cur_orderproduct = Orderproduct.new(order_id: session[:order_id], product_id: product.id, quantity: 1)
-      # check for existing item here and do += ? or add all like items at checkout?
-      product.stock -= 1
+      end
     end
     if cur_orderproduct.save
+      product.stock -= 1
       flash[:success] = "Item added to cart."
       redirect_to products_path
     end
