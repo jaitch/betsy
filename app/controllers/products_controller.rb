@@ -38,6 +38,50 @@ class ProductsController < ApplicationController
     end
   end
   
+  def edit 
+    if session[:merchant_id].nil?
+      flash[:error] = "You must be logged in as a merchant to edit a product."
+      redirect_back(fallback_location: root_path)
+      return
+    end
+    
+    @product = Product.find_by(id:params[:id])
+    if @product.nil?
+      redirect_to root_path
+      return
+    end
+  end
+  
+  def update 
+    @product = Product.find_by(id: params[:id])
+    
+    if @product.nil?
+      redirect_to root_path
+    end
+    
+    if @product.update(product_params.merge(merchant_id: session[:merchant_id]))
+      flash[:success] = "You updated a product successfully!"
+      redirect_to root_path
+    else 
+      flash[:warning] = "This product did not product because #{@product.errors.messages}"
+      redirect_to edit_product_path 
+      return 
+    end
+  end 
+  
+  def destroy 
+    product_id = params[:id]
+    @product = Product.find_by(id: product_id)
+    
+    if @product.nil?
+      redirect_to root_path
+      return
+    elsif @product.destroy 
+      redirect_to root_path
+      return
+    end
+  end 
+  
   private 
   
   def product_params
