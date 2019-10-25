@@ -1,10 +1,25 @@
 class OrdersController < ApplicationController
+  before_action :find_order, only: [:show, :edit, :update, :destroy]
+  def index
+    @orders = Order.ApplicationController
+  end
+
+  def show ; end
+
   def new
     @order = Order.new
   end
 
   def create
     @order = Order.new(order_params)
+    orderproduct = Orderproduct.new(order_id: @order.id, product_id: params[:product][:id], quantity: 1)
+  end
+
+  def edit ; end
+  end
+
+  def update
+    if 
   end
 
   def delete

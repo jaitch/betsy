@@ -8,4 +8,4 @@
 <% end %>
 </ol>
 
-<%= button_to 'Checkout', edit_order_path %>
+<%= render partial: "form", locals: { verb_name: "Complete" } %>
