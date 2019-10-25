@@ -1,5 +1,5 @@
-username,email
-mariya,m@gmail.com
-janice,j@gmail.com 
-julia,jl@gmail.com 
-ga-young,gy@gmail.com
+username,email,uid,provider
+mariya,m@gmail.com,1,github
+janice,j@gmail.com,2,github
+julia,jl@gmail.com,3,github
+ga-young,gy@gmail.com,4,github

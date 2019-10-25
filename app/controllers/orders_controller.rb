@@ -24,6 +24,22 @@ class OrdersController < ApplicationController
   def delete
   end
 
+  def add_to_cart
+    if session[:order_id]
+      order = Order.find(session:[:order_id])
+    else
+      order = Order.create
+    end
+    product_to_add = Orderproduct.create(product_id: params[:product_id], order_id: order.id)
+    if product_to_add
+      flash[:success] = "Successfully added item to your cart."
+      redirect_to products_path
+    else
+      flash[:failure] = "Problem adding item to your cart."
+      redirect_to products_path
+    end
+  end
+
   private
   def order_params
     return params.require(:order).permit(:name, :email, :mailing_address, :zip, :name_on_cc, :cc_number, :cc_cvc, :cc_exp, :quantity, product_ids: [])
