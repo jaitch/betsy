@@ -1,2 +1,0 @@
-class ReviewsControllerController < ApplicationController
-end
