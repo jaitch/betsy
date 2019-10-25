@@ -25,7 +25,7 @@ CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
   merchant.uid = row['uid']
   merchant.provider = row['provider']
   successful = merchant.save
-
+  
   if !successful
     merchants_failures << merchant
     puts "Failed to save merchant: #{merchant.errors.inspect}"
@@ -42,7 +42,7 @@ CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
   category = Category.new
   category.name = row['name']
   successful = category.save
-
+  
   if !successful
     categories_failures << category
     puts "Failed to save category: #{category.errors.inspect}"
@@ -65,24 +65,24 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.retire = row['retire']
   product.merchant_id = row['merchant_id']
   successful = product.save
-
+  
   if !successful
     products_failures << product
     puts "Failed to save product: #{product.errors.inspect}"
   else
     puts "Created product: #{product.inspect}"
   end
-
-
+  
+  
   puts "Loading raw media data from #{ORDER_FILE}"
-
+  
   orders_failures = []
-
+  
   CSV.foreach(ORDER_FILE, :headers => true) do |row|
     order = Order.new
     order.name = row['order']
     successful = order.save
-
+    
     if !successful
       orders_failures << order
       puts "Failed to save order: #{order.errors.inspect}"
@@ -90,16 +90,16 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
       puts "Created order: #{order.inspect}"
     end
   end
-
+  
   orderproducts_failures = []
-
+  
   CSV.foreach(ORDERPRODUCT_FILE, :headers => true) do |row|
     orderproduct = Orderproduct.new
     orderproduct.quantity = row['quantity']
     orderproduct.order_id = row['order_id']
     orderproduct.product_id = row['product_id']
     successful = orderproduct.save
-
+    
     if !successful
       orderproducts_failures << orderproduct
       puts "Failed to save orderproduct: #{orderproduct.errors.inspect}"
@@ -107,6 +107,6 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
       puts "Created orderproduct: #{orderproduct.inspect}"
     end
   end
-
-
+  
+  
 end

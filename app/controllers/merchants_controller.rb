@@ -1,5 +1,5 @@
 class MerchantsController < ApplicationController
-  before_action :find_merchant, only: [:show, :edit] #, :update, :destroy]
+  before_action :find_merchant, only: [:show, :edit, :fulfillment] #, :update, :destroy]
   before_action :missing_merchant, only: [:show, :edit]
   
   def index
@@ -70,6 +70,11 @@ class MerchantsController < ApplicationController
       redirect_to root_path
     end
     # return @current_merchant
+  end
+  
+  def fulfillment
+    @ordered_products = @merchant.fulfillments
+    return @ordered_products
   end
   
   # def logout

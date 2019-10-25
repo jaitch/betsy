@@ -8,6 +8,9 @@
       <li> Description: <%= product.description %> </li>
       <li> Retire: <%= product.retire %> </li> 
       <%# link to product retire path later %>
+      <li>
+      <%= link_to "Fulfillment", fulfillment_path(@merchant) %>
+      </li>
     </ul>
   <% end %>
 </ul>
