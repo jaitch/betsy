@@ -1,17 +1,26 @@
 class ApplicationController < ActionController::Base
 
-  def add_to_cart
+  def current_order
     if session[:order_id]
-      order = Order.find(session:[:order_id])
+      Order.find(session[:order_id])
     else
-      order = Order.create
+      @order = Order.create
+      session[:order_id] = @order.id
     end
-    product_to_add = Orderproduct.create(product_id: params[:product_id], order_id: order.id)
-    if product_to_add
-      flash[:success] = "Successfully added item to your cart."
-      redirect_to products_path
+  end
+  def add_item
+    order = current_order
+    product = Product.find(params[:product][:product_id])
+    if product.stock < 1
+      flash.now[:failure] = "Out of stock. Sorry!"
+      render products_path
     else
-      flash[:failure] = "Problem adding item to your cart."
+      cur_orderproduct = Orderproduct.new(order_id: session[:order_id], product_id: product.id, quantity: 1)
+      # check for existing item here and do += ? or add all like items at checkout?
+      product.stock -= 1
+    end
+    if cur_orderproduct.save
+      flash[:success] = "Item added to cart."
       redirect_to products_path
     end
   end
