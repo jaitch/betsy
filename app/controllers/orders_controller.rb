@@ -16,10 +16,9 @@ class OrdersController < ApplicationController
   end
 
   def edit ; end
-  end
+
 
   def update
-    if 
   end
 
   def delete
@@ -27,7 +26,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    return params.require(:order).permit(:name, :email, :mailing_address, :zip, :name_on_cc, :cc_number, :cc_cvc, :cc_exp)
+    return params.require(:order).permit(:name, :email, :mailing_address, :zip, :name_on_cc, :cc_number, :cc_cvc, :cc_exp, :quantity, product_ids: [])
   end
 
   def find_order

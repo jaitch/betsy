@@ -1,9 +1,10 @@
 <h3> Contents of Your Shopping Cart: </h3>
 
 <ol>
-<% items = Orderproducts.where(@order_id) %>
-<% item.each do |item| %>
-<li> <%= item.product.name %>
+
+<% @order.products.each do |product| %>
+<li> <%= product.name %>
+<br>
 Change quantity: <%= %>
 [make drop down box that reflects quantity available?]
 </li>
