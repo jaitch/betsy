@@ -1,0 +1,15 @@
+one:
+  rating: 1
+  product_id: magician
+two:
+  rating: 2
+  product_id: batman
+three:
+  rating: 3
+  product_id: taco
+four:
+  rating: 4
+  product_id: taco
+five:
+  rating: 5
+  product_id: clown
