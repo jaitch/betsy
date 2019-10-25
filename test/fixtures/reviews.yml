@@ -1,15 +1,20 @@
 one:
   rating: 1
   product_id: magician
+  text: "Not magical at all"
 two:
   rating: 2
   product_id: batman
+  text: ""
 three:
   rating: 3
   product_id: taco
+  text: "Meh"
 four:
   rating: 4
   product_id: taco
+  text: "So cute I just want to eat it up."
 five:
   rating: 5
   product_id: clown
+  text: "OMG AMAZING I LOVE IT SO MUCH"
