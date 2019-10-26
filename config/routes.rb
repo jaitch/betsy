@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :orders#, except: [:put]
 
-  resources :orderproducts
+  resources :orderproducts do
+    resources :orders
+    resources :products
+  end
 
   root "homepages#index"
 
