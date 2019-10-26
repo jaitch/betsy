@@ -1,5 +1,5 @@
 <h3> Contents of Your Shopping Cart: </h3>
-<% orderproducts = Orderproduct.where(order_id: @order.id) %>
+<% orderproducts = @order.orderproducts %>
 <ol>
 <% orderproducts.each do |orderproduct| %>
 <li> <%= link_to orderproduct.product.name, product_path(orderproduct.product) %>
@@ -17,7 +17,7 @@ Quantity:
   <%end%>
 </select>
 
-<%= button_to 'Delete Item', orderproduct_path(orderproduct.product.id), method: :delete, data: {confirm: "Are you sure?"} %>
+<%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, data: {confirm: "Are you sure?"} %>
 <br>
 </li>
 <% end %>
