@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :orders#, except: [:put]
-     
+
+  resources :orderproducts
 
   root "homepages#index"
 
