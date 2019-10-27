@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :merchants
 
+  resources :categories
+
   # get "/login", to: "merchants#login_form", as: "login"
   # post "/login", to: "merchants#login"
   # post "/logout", to: "merchants#logout", as: "logout"

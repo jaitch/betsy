@@ -3,9 +3,3 @@
 <h2>Buy Our Flash Sale Item!</h2>
 <%  feature = @products.sample %>
 <%= link_to feature.name, product_path(feature.id)%>
-
-<p>Merchants:</p>
-<% merchants = Product.products_by_merchant %>
-<% merchants.each do |merchant| %>
-  <%=  merchant.username %>
-<% end %>
