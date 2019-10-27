@@ -20,7 +20,7 @@ class ReviewsController < ApplicationController
     @review = Review.new(rating: params[:review][:rating], product_id: params[:product_id], text: params[:review][:text])
     if @review.save 
       flash[:success] = "Your review has been saved."
-      redirect_to product_path([:product_id])
+      redirect_to product_path(params[:product_id])
       return
     else 
       render :new
