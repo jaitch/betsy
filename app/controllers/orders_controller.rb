@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+#    @order.status = "pending"
     orderproduct = Orderproduct.new(order_id: @order.id, product_id: params[:product][:id], quantity: 1)
   end
 
@@ -20,8 +21,13 @@ class OrdersController < ApplicationController
 
   def update
     if @order.update(order_params)
+      @order.status = "paid"
+      @order.orderproducts.each do |orderproduct|
+        orderproduct.product.stock -= orderproduct.quantity
+      end
+      session[:order_id] = nil
       flash[:success] = "Order placed!"
-      redirect_to
+      redirect_to root_path
       return
     else
       flash.now[:failure] = "Order failed!"
@@ -41,7 +47,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    return params.require(:order).permit(:name, :email, :mailing_address, :zip, :name_on_cc, :cc_number, :cc_cvc, :cc_exp, :quantity, product_ids: [])
+    return params.require(:order, :status => "pending").permit(:name, :email, :mailing_address, :zip, :name_on_cc, :cc_number, :cc_cvc, :cc_exp, :quantity, product_ids: [])
   end
 
   def find_order
