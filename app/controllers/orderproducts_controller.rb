@@ -24,7 +24,7 @@ class OrderproductsController < ApplicationController
   def destroy
     if @orderproduct.destroy
       flash[:success] = "Work successfully deleted!"
-      redirect_to order_path(:order_id)
+      redirect_to order_path(@orderproduct.order)
     end
   end
 
