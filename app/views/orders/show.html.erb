@@ -2,7 +2,7 @@
 <% orderproducts = @order.orderproducts %>
 <ol>
 <% orderproducts.each do |orderproduct| %>
-<li> <%= link_to orderproduct.product.name, product_path(orderproduct.product) %>
+<li> <%= link_to orderproduct.product.name, product_path(orderproduct.product)%>
 <br>
 Quantity:
 <select>
