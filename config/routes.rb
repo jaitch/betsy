@@ -8,13 +8,12 @@ Rails.application.routes.draw do
   get '/cart/:id', to: 'application#add_item' , as: 'cart'
   
   resources :products do
-    resources :reviews, only: [:index, :new, :create]
+    resources :reviews, only: [:show,:index, :new, :create]
   end
 
   resources :merchants
   
   resources :categories
-  
   
   # get "/login", to: "merchants#login_form", as: "login"
   # post "/login", to: "merchants#login"

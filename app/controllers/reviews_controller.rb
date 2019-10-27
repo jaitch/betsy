@@ -9,7 +9,6 @@ class ReviewsController < ApplicationController
     
     if @review.nil?
       redirect_to root_path
-      # redirect to product page?
     end
   end
   
@@ -18,13 +17,12 @@ class ReviewsController < ApplicationController
   end
   
   def create
-    @review = Review.new
+    @review = Review.new(rating: params[:review][:rating], product_id: params[:product_id], text: params[:review][:text])
     if @review.save 
       flash[:success] = "Your review has been saved."
-      redirect_to root_path
+      redirect_to product_path([:product_id])
       return
     else 
-      flash.now[:warning] = "Your review could not be saved because #{@review.errors.full_messages}"
       render :new
       return
     end
@@ -33,7 +31,7 @@ class ReviewsController < ApplicationController
   private 
 
   def review_params
-    params.require(:review).permit(:rating, :text)
+    params.require(:review).permit(:rating, :text, :product_id)
   end
 
 end
