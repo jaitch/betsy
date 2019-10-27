@@ -26,7 +26,7 @@ describe Review do
     it 'can access the product through "review"' do
       
       review = Review.create(rating: 2, product_id: product.id, text: "Just okay")
-
+      
       expect _(review.product_id).must_equal product.id
       
     end
@@ -82,6 +82,37 @@ describe Review do
   end
   
   describe "custom methods" do
+    
+    describe "sort descending" do
+      
+      it "sorts reviews by newest first" do 
+        
+        Review.destroy_all
+
+        # product_1 = Product.new(name: "Harry Potter", price: 25, stock: 12, photo: "Harry", retire: false, description: "Your pet will be ready to take on He-Who-Shall-Not-Be-Named in this deluxe Harry Potter costume", merchant_id: 1)
+
+        review_1 = Review.create(rating: 4, product_id: product.id, text: "So great")
+
+        review_2 = Review.create(rating: 3, product_id: product.id, text: "Just okay")
+        
+reviews_descending = Review.sort_descending
+
+        # review_2 was the most recent so it should show up first
+    
+        expect( reviews_descending[0] ).must_equal review_2
+
+        expect( reviews_descending[1] ).must_equal review_1
+
+      end
+
+      it "returns nil if there are no reviews" do
+        Review.destroy_all
+        reviews_descending = Review.sort_descending
+        
+        expect( reviews_descending.count ).must_equal 0
+      end
+      
+    end
     
   end
   

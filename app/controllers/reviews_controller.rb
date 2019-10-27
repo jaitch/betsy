@@ -1,16 +1,16 @@
 class ReviewsController < ApplicationController
-  def index 
-    @reviews = Review.all
-  end
+  # def index 
+  #   @reviews = Review.all
+  # end
   
-  def show 
-    review_id = params[:id]
-    @review = Review.find_by(id: review_id)
+  # def show 
+  #   review_id = params[:id]
+  #   @review = Review.find_by(id: review_id)
     
-    if @review.nil?
-      redirect_to root_path
-    end
-  end
+  #   if @review.nil?
+  #     redirect_to root_path
+  #   end
+  # end
   
   def new
     @review = Review.new
