@@ -22,6 +22,28 @@ describe Review do
     refute_nil(review[:rating])
   end
   
+  describe "relationships" do 
+    it 'can access the product through "review"' do
+      
+      review = Review.create(rating: 2, product_id: product.id, text: "Just okay")
+
+      expect _(review.product_id).must_equal product.id
+      
+    end
+    
+    it 'can set the product ID through "review"' do
+      
+      review = Review.create(rating: 4, product_id: product.id, text: "So great")
+      
+      product_2 = products(:batman)
+      
+      review.product_id = product_2.id
+      
+      expect _(review.product_id).must_equal product_2.id
+      
+    end
+  end
+  
   describe "validations" do
     
     it "must have a rating" do
