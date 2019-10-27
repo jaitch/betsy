@@ -1,2 +1,2 @@
 <%= @product.name%>
-<%= button_to 'Add to Cart', product_cart_path(@product.id), method: :get%>
+<%= button_to 'Add to Cart', product_orderproducts_path(@product.id) %>

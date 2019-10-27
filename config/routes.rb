@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
   resources :orders#, except: [:put]
 
-  resources :orderproducts do
-#    resources :orders
-#    resources :products
-  end
+  resources :orderproducts, except: [:create]
 
   root "homepages#index"
 
   resources :products do
-    get '/cart', to: 'application#add_item' , as: :cart
+    resources :orderproducts, only: [:create, :destroy]
   end
 
   resources :merchants
