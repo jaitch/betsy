@@ -1,37 +1,44 @@
 class OrderproductsController < ApplicationController
   before_action :find_orderproduct, only: [:show, :edit, :update, :destroy]
-  def index
-    @orderproducts = Orderproduct.all
-  end
+  # def index
+  #   @orderproducts = Orderproduct.all
+  # end
 
-  def show ; end
+  # def show ; end
 
   def new
     @orderproduct = Orderproduct.new
   end
 
   def create
+    # checks to see if prodcut is in stock
     @product = Product.find(params[:product_id])
     if @product.stock < 1
       flash[:failure] = "Out of stock. Sorry!"
       redirect_to products_path
       return
     end
+    # checks to see if there is an existing order going
     if session[:order_id]
       @order = Order.find(session[:order_id])
+    # if there isn't an existing order, creates one
     else
       @order = Order.create
       session[:order_id] = @order.id
     end
+    # if there is already an order going and desired product is already in the cart, locates that orderproduct
     cur_orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
     if cur_orderproduct != nil
+      # if the max number of available stock for that product is already in the cart, buyer is unable to add another one to the order. we need this because items aren't deducted from stock until after checkout
       if cur_orderproduct.quantity == @product.stock
         flash[:failure] = "No more in stock. Sorry!"
         redirect_to products_path
         return
       else
+      # if the max number hasn't been met, the item is added to the cart and the count of that product in this order goes up by one
       cur_orderproduct.quantity += 1
       end
+    # if the order exists but that particular item isn't yet in the cart, the orderproduct is created with a quantity of 1
     else
       cur_orderproduct = Orderproduct.new(order_id: @order.id, product_id: @product.id, quantity: 1)
     end
