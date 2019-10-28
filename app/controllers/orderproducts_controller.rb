@@ -48,6 +48,7 @@ class OrderproductsController < ApplicationController
   def edit ; end
 
   def update
+    @orderproduct.update(orderproduct_params)
   end
 
   def destroy

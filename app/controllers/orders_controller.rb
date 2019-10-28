@@ -18,7 +18,6 @@ class OrdersController < ApplicationController
 
   def edit ; end
 
-
   def update
     if @order.update(order_params)
       @order.orderproducts.each do |orderproduct|
