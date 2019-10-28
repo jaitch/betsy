@@ -19,13 +19,12 @@ describe ProductsController do
   describe "show" do 
     before do 
       # Arrange
-      @merchant = Merchant.create(username: "mariya", email: "m@gmail.com" )
-      @hot_dog = Product.create(name: "Hot Dog", price: 25.00, stock: 12, description: "Fido will look good enough to eat in this weiner suit!", photo: nil, retire: false, merchant_id: @merchant.id)
+      @magician = products(:magician)
     end
     
     it "succeeds for an existing product_id" do 
       # Act
-      get product_path(@hot_dog.id)
+      get product_path(@magician.id)
       
       # Assert
       must_respond_with :success
@@ -55,12 +54,13 @@ describe ProductsController do
     it "can create a new product" do
       # Arrange
       start_count = Product.all.count
+      perform_login()
       product_hash = {
       product: {
-      name: "tutu",
+      name: "Markle Sparkle Princess Dress",
       price: 50.00,
       stock: 5,
-      description: "pink",
+      description: "it's a black dress for your fancy pet",
       photo: nil,
       retire: false,
     }
@@ -68,11 +68,53 @@ describe ProductsController do
   # Act
     post products_path, params: product_hash
   
-    last = Product.last 
   # Assert
-    expect(start_count).must_equal 1
+    expect(Product.all.count).must_equal (start_count + 1)
     must_redirect_to root_path
     end
+  end
+
+  describe "edit" do 
+    it "can get the edit a product page" do 
+      #Arrange 
+      perform_login()
+      @magician = products(:magician)
+      
+      # Act
+      get edit_product_path(@magician)
+
+      # Assert
+      must_respond_with :success
+    end 
+  end
+
+  describe "update" do 
+    it "can update a product" do 
+      # Arrange
+      @magician = products(:magician)
+      perform_login
+      update_hash = {
+        product: {
+          name: "Houdini",
+          price: 150.99,
+          stock: 12,
+          retire: true 
+        }
+      }
+
+      # Act
+      patch product_path(@magician.id), params:update_hash
+      @magician = Product.find_by(id: @magician.id)
+      
+      # Assert
+
+      @magician.name.must_equal "Houdini"
+      @magician.price .must_equal 150.99
+      @magician.stock.must_equal 12
+      @magician.retire.must_equal true
+
+
+    end 
   end
 
 end #end Products controller
