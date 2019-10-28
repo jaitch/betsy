@@ -13,8 +13,8 @@ class OrderproductsController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
     if @product.stock < 1
-      flash.now[:failure] = "Out of stock. Sorry!"
-      render products_path
+      flash[:failure] = "Out of stock. Sorry!"
+      redirect_to products_path
       return
     end
     if session[:order_id]
@@ -23,15 +23,21 @@ class OrderproductsController < ApplicationController
       @order = Order.create
       session[:order_id] = @order.id
     end
-    if Orderproduct.find_by(order_id: @order.id, product_id: @product.id) != nil
-      cur_orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
+    cur_orderproduct = Orderproduct.find_by(order_id: @order.id, product_id: @product.id)
+    if cur_orderproduct != nil
+      if cur_orderproduct.quantity == @product.stock
+        flash[:failure] = "No more in stock. Sorry!"
+        redirect_to products_path
+        return
+      else
       cur_orderproduct.quantity += 1
+      end
     else
       cur_orderproduct = Orderproduct.new(order_id: @order.id, product_id: @product.id, quantity: 1)
     end
     if cur_orderproduct.save
       flash[:success] = "Item added to cart."
-      redirect_to products_path
+      redirect_to order_path(@order.id)
       return
     else flash[:failure] = "Item NOT added to cart."
       render products_path
