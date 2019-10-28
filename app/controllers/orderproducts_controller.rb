@@ -11,7 +11,7 @@ class OrderproductsController < ApplicationController
   end
 
   def create
-    # checks to see if prodcut is in stock
+    # checks to see if product is in stock
     @product = Product.find(params[:product_id])
     if @product.stock < 1
       flash[:failure] = "Out of stock. Sorry!"
