@@ -14,6 +14,11 @@ class ProductsController < ApplicationController
   end
   
   def new
+    if session[:merchant_id].nil?
+      flash[:error] = "You must be logged in as a merchant to add a product."
+      redirect_back(fallback_location: root_path)
+      return
+    end
     @product = Product.new
   end
   
@@ -31,6 +36,11 @@ class ProductsController < ApplicationController
   end
 
   def edit 
+    if session[:merchant_id].nil?
+      flash[:error] = "You must be logged in as a merchant to edit a product."
+      redirect_back(fallback_location: root_path)
+      return
+    end
     if session[:merchant_id].nil?
       flash[:error] = "You must be logged in as a merchant to edit a product."
       redirect_back(fallback_location: root_path)
