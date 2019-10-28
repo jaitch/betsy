@@ -8,4 +8,22 @@ class CategoriesController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def new
+    @category = Category.new
+  end
+
+  def create
+    @category = Category.new(name: params[:category][:name])
+    if @category.save 
+      flash[:success] = "Your category has been added."
+      redirect_to root_path
+      return
+    else 
+      raise "zoo"
+      flash.now[:warning] = "Your category could not be saved because #{@category.errors.full_messages}"
+      render :new
+      return
+    end
+  end 
 end
