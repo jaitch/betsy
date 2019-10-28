@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/cart/:id', to: 'application#add_item' , as: 'cart'
   
   resources :products do
-    resources :reviews, only: [:show,:index, :new, :create]
+    resources :reviews, only: [:new, :create]
   end
 
   resources :merchants
