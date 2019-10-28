@@ -1,1 +1,22 @@
-confirmation page
+<% @order = Order.find_by(id: params[:id]) %>
+<h2> Order Confirmation </h2>
+
+<table class = "table">
+  <thead>
+    <tr>
+      <th> Item </th>
+      <th> Quantity </th>
+      <th> Subtotal </th>
+    </tr>
+  </thead>
+  <%= @order.orderproducts.each do |orderproduct| %>
+  <tr>
+    <td> <%= link_to orderproduct.product.name, product_path(product.id) %> </td>
+    <td> <%= orderproduct.quantity %> </td>
+    <td> <%= orderproduct.product.price %> </td>
+  </tr>
+  <% end %>
+</table>
+
+<h3> Order total: </h3>
+<%= @order.orderproducts.products.sum %>
