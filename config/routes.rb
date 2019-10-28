@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :orders#, except: [:put]
+  resources :orders#, except: [:put] do
   get "/confirmation/:id", to: "orders#confirmation", as: "confirmation"
 
   resources :orderproducts, except: [:create]
