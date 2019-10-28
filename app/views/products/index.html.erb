@@ -1,6 +1,8 @@
 <h1>Products</h1>
 <% @products.each do |product| %>
-  <%= link_to product.name, product_path(product.id)%>
-  <%= button_to 'Add to Cart', product_orderproducts_path(product.id) %>
+  <% if product.retire == false %>
+    <%= link_to product.name, product_path(product.id)%>
+    <%= button_to 'Add to Cart', product_orderproducts_path(product.id) %>
+  <% end %>
   <br>
 <% end %>

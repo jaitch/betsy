@@ -8,6 +8,8 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+
+   <body>
   <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <%= link_to "Petsy Betsy", root_path%>
@@ -24,6 +26,7 @@
       <% if session[:merchant_id]%>
       <li class="nav-item">
         <%= link_to "Add a product", new_product_path, class: "nav-link" %>
+        <%= link_to "Manage My Store", merchant_path(session[:merchant_id]), class: "nav-link" %>
       </li>
       <% end %>
       <%= merchants_dropdown%>
@@ -39,7 +42,11 @@
 </nav>
   </header>
 
-  <body>
+  <section class="flash">
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+  </section>
 
     <% if session[:merchant_id] %>
       <%= link_to "Log out", logout_path, method: "delete" %>
@@ -47,11 +54,6 @@
       <%= link_to "Login with Github", github_login_path %>
     <% end %>
 
-    <section class="flash">
-    <% flash.each do |name, message| %>
-      <div class="<%= name %>"><%= message %></div>
-    <% end %>
-    </section>
 
     <%= yield %>
 
