@@ -49,6 +49,8 @@ class OrderproductsController < ApplicationController
 
   def update
     @orderproduct.update(orderproduct_params)
+    redirect_to order_path(@orderproduct.order) # so that update is available again (goes from grey to black)
+    return
   end
 
   def destroy
