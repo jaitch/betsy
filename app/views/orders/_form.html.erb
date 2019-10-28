@@ -26,6 +26,8 @@
   <br>
   <%= f.label 'Credit Card CVC: '%>
   <%= f.text_field :cc_cvc %>
-<br>
+  <br>
+  <%= f.hidden_field :status, :value => "paid" %>
+
   <%= f.submit "Checkout" %>
 <% end %>
