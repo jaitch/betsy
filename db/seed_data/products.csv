@@ -4,3 +4,4 @@ name,price,stock,description,photo,retire,merchant_id
 "Unicorn horn",14,78,"Your cat or dog will look majestic in this delightful unicorn horn. (No unicorns were harmed to make this product.)","photo3",false,3
 "Viking ship",125,3,"Your llama will be the center of the drama in this stunning viking ship costume.","photo4",false,4
 "Baby shark",18,4,"Everybody get off the beach, this baby shark's got teeth!","photo5",false,1
+"Bark Obama",10.50,5,"Yes we can!",nil,false,2
