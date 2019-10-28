@@ -1,2 +1,14 @@
 <%= @product.name%>
 <a class="badge badge-pill badge-info" href="/cart/:id">Add to Cart</a>
+
+<% if Product.find_by(id: params[:id]).merchant_id == session[:merchant_id] %>
+<% else %>
+<a class="badge badge-pill badge-info" href="/products/<%= @product.id %>/reviews/new">Write a Review</a>
+<% end %>
+
+<h2>Reviews</h2>
+<% @product.reviews.sort_descending.each do |review|%>
+<p> Rating: <%= review.rating%> </p>
+<p> Review: <%= review.text%> </p>
+<hr>
+<% end%>
