@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
       end
       session[:order_id] = nil
       flash[:success] = "Order placed!"
-      redirect_to root_path
+      redirect_to confirmation_path
       return
     else
       flash.now[:failure] = "Order failed!"
