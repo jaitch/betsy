@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
-  resources :orders#, except: [:put]
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
-  
-  root "homepages#index"
-  
-  get '/cart/:id', to: 'application#add_item' , as: 'cart'
-  
-  resources :products do
-    resources :reviews, only: [:new, :create]
-  end
+  resources :orders#, except: [:put] do
+  get "/confirmation/:id", to: "orders#confirmation", as: "confirmation"
 
+  resources :orderproducts, except: [:create]
+
+  root "homepages#index"
+
+  resources :products do
+    resources :orderproducts, only: [:create, :destroy]
+    resources :reviews, only: [:new, :create]
+  end 
+
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html  
+  
   resources :merchants
   
   resources :categories

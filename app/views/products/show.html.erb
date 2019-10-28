@@ -1,5 +1,5 @@
 <%= @product.name%>
-<a class="badge badge-pill badge-info" href="/cart/:id">Add to Cart</a>
+<%= button_to 'Add to Cart', product_orderproducts_path(@product.id) %>
 
 <% if Product.find_by(id: params[:id]).merchant_id == session[:merchant_id] %>
 <% else %>

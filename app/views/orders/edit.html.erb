@@ -2,7 +2,7 @@
 <% orderproducts = Orderproduct.where(order_id: @order.id) %>
 <ol>
 <% orderproducts.each do |orderproduct| %>
-<li> <%= orderproduct.product.name %>
+<li> <%= link_to orderproduct.product.name, product_path(orderproduct.product)%>
 <br>
 Quantity:
 <select>
@@ -16,6 +16,8 @@ Quantity:
     <% x += 1 %>
   <%end%>
 </select>
+<%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, data: {confirm: "Are you sure?"} %>
+<br>
 </li>
 <% end %>
 </ol>

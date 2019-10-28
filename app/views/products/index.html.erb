@@ -2,7 +2,7 @@
 <% @products.each do |product| %>
   <% if product.retire == false %>
     <%= link_to product.name, product_path(product.id)%>
-    <%= button_to 'Add to Cart', cart_path(product.id), method: :get%>
+    <%= button_to 'Add to Cart', product_orderproducts_path(product.id) %>
   <% end %>
-<!--  <a class="badge badge-pill badge-info" href="/cart/:id">Add to Cart</a> -->
+  <br>
 <% end %>
