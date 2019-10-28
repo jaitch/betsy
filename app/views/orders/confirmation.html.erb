@@ -1,5 +1,7 @@
 <% @order = Order.find_by(id: params[:id]) %>
-<h2> Order Confirmation </h2>
+
+<h1> Thank you for your order! </h1>
+<br>
 
 <table class = "table">
   <thead>
@@ -22,3 +24,4 @@
 
 <h3> Order total: $<%= sprintf "%.2f", total %> </h3>
 <h3> Order placed: <%= readable_date(@order.created_at.to_s) %> </h3>
+<h3> Order status: <%= @order.status %>
