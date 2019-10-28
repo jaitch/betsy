@@ -1,4 +1,7 @@
-<%= @product.name%>
+<br>
+<p>Item: <%= @product.name%></p>
+<p>Price: <%= @product.price%></p>
+<p>Stock: <%= @product.stock%></p>
 <%= button_to 'Add to Cart', product_orderproducts_path(@product.id) %>
 
 <% if Product.find_by(id: params[:id]).merchant_id == session[:merchant_id] %>
