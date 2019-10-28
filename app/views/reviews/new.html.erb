@@ -1,0 +1,14 @@
+
+
+<h2> Review <%= Product.find_by(id: params[:product_id]).name %> </h2>
+
+<%= form_with model: @review, class: "create-review", :url => {:action => "create", :id => :product_id} do |f| %>
+  <%= f.label :rating %>
+  <%= f.select :rating, [1,2,3,4,5]%>
+
+  <%= f.label :text %>
+  <%= f.text_area :text %>
+
+  <%= f.submit "Submit review", class: "submit-button" %>
+
+<% end %>

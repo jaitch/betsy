@@ -11,9 +11,10 @@
   <br>
   <%= f.label 'Mailing Address: '%>
   <%= f.text_field :mailing_address %>
-  <%= f.label 'Zip Code: '%>
   <br>
+  <%= f.label 'Zip Code: '%>
   <%= f.text_field :zip %>
+  <br>
   <%= f.label 'Name on Credit Card: '%>
   <%= f.text_field :name_on_cc %>
   <br>
@@ -25,6 +26,8 @@
   <br>
   <%= f.label 'Credit Card CVC: '%>
   <%= f.text_field :cc_cvc %>
-<br>
+  <br>
+  <%= f.hidden_field :status, :value => "paid" %>
+
   <%= f.submit "Checkout" %>
 <% end %>

@@ -8,13 +8,15 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+
+   <body>
   <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <%= link_to "Petsy Betsy", root_path%>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  
+
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -29,15 +31,22 @@
       <% end %>
       <%= merchants_dropdown%>
       <%= categories_dropdown%>
-      <li class="nav-item">
-      <%= link_to "Cart", order_path(:id), class: "nav-link" %>
-      </li>
+      <% if session[:order_id] != nil %>
+        <li class="nav-item">
+        <%= link_to "Cart", order_path(session[:order_id]), class: "nav-link" %>
+        </li>
+      <% end %>
+
     </ul>
   </div>
 </nav>
   </header>
 
-  <body>
+  <section class="flash">
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+  </section>
 
     <% if session[:merchant_id] %>
       <%= link_to "Log out", logout_path, method: "delete" %>
@@ -45,11 +54,6 @@
       <%= link_to "Login with Github", github_login_path %>
     <% end %>
 
-    <section class="flash">
-    <% flash.each do |name, message| %>
-      <div class="<%= name %>"><%= message %></div>
-    <% end %>
-    </section>
 
     <%= yield %>
 
