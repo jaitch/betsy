@@ -1,4 +1,3 @@
-require 'dotenv'
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   Dotenv.load
