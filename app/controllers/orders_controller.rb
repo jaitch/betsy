@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: [:show, :edit, :update, :destroy]
+  before_action :if_order_missing, only: [:show, :edit, :update, :destroy]
+
   def index
     @orders = Order.all
   end
@@ -55,7 +57,7 @@ class OrdersController < ApplicationController
   def if_order_missing
     if @order.nil?
       flash[:error] = "Order with id #{params[:id]} was not found!"
-      redirect_to_products_path
+      redirect_to products_path
       return
     end
   end
