@@ -55,7 +55,7 @@ class OrdersController < ApplicationController
   def if_order_missing
     if @order.nil?
       flash[:error] = "Order with id #{params[:id]} was not found!"
-      redirect_to works_path
+      redirect_to_products_path
       return
     end
   end

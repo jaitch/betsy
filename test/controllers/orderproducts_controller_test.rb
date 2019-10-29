@@ -93,7 +93,7 @@ describe OrderproductsController do
       orderproduct: {
       quantity: 5
       }}
-      expect{ patch orderproduct_path(op), params: orderproduct_hash }.wont_change Orderproduct.count
+      expect{ patch orderproduct_path(op.id), params: orderproduct_hash }.wont_change Orderproduct.count
       must_respond_with :redirect
       expect(op.quantity).must_equal 5
     end
@@ -105,7 +105,11 @@ describe OrderproductsController do
       post product_orderproducts_path(product.id)
       second_product = products(:batman)
       post product_orderproducts_path(second_product.id)
-      delete
+      order = Order.last
+      op = Orderproduct.last
+      expect{delete orderproduct_path(op.id)}.wont_change Order.count
+      expect(order.orderproducts.count).must_equal 1
+      expect(Orderproduct.last.product_id).must_equal product.id
     end
   end
 end
