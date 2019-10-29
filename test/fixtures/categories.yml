@@ -1,5 +1,6 @@
 puppy:
   name: puppy
+  products: [batman]
 kitty:
   name: kitty
 dog:
@@ -8,3 +9,4 @@ cat:
   name: cat
 superhero:
   name: superhero
+  products: [batman]

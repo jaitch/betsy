@@ -6,13 +6,25 @@ describe ProductsController do
       hot_dog = Product.create(name: "Hot Dog", price: 25.00, stock: 12, description: "Fido will look good enough to eat in this weiner suit!", photo: nil, retire: false, merchant_id: 1)
       unicorn_horn = Product.create(name: "Unicorn Horn", price: 14.00, stock: 78, description: "Your cat or dog will look majestic in this delightful unicorn horn. (No unicorns were harmed to make this product.)", photo: nil, retire: false, merchant_id: 1)
     end
-    
-    it "shows all the products" do 
+    describe "while logged out" do 
+      it "shows all the products" do 
       # Act
-      get products_path
+        get products_path
       
       # Assert
-      must_respond_with :success      
+        must_respond_with :success      
+      end
+    end 
+
+    describe "while logged in" do 
+      it "shows all products" do 
+        # Act
+        perform_login()
+        get products_path
+
+        # Assert
+        must_respond_with :success 
+      end
     end
   end # end describe index block
   
@@ -22,22 +34,45 @@ describe ProductsController do
       # Arrange
       @magician = products(:magician)
     end
-    
-    it "succeeds for an existing product_id" do 
+
+    describe "while logged out" do 
+      it "succeeds for an existing product_id" do 
       # Act
-      get product_path(@magician.id)
+        get product_path(@magician.id)
       
       # Assert
-      must_respond_with :success
-    end
+        must_respond_with :success
+      end
     
-    it "redirects for invalid id" do 
-      # Act
-      get product_path(246273452735)
+      it "redirects for invalid id" do 
+        # Act
+        get product_path(246273452735)
       
-      # Assert
-      must_respond_with :redirect
-      must_redirect_to root_path
+        # Assert
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end 
+
+    describe "while logged in" do 
+      it "succeeds for an existing product_id" do 
+        # Act 
+        perform_login()
+        get product_path(@magician.id)
+
+        # Assert
+        must_respond_with :success
+      end
+
+      it "redirects for an invalid id" do 
+        # Act
+        perform_login()
+        get product_path(-2)
+
+        # Assert
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
     end
   end #describe show block
   
@@ -50,8 +85,8 @@ describe ProductsController do
       # Assert
       must_respond_with :redirect
       must_redirect_to root_path
-    end
-  end 
+      end
+    end 
 
     describe "while logged in" do 
       it "can get the new product page" do
@@ -66,6 +101,18 @@ describe ProductsController do
   end
   
   describe "create" do 
+    describe "while logged out" do 
+      it "cannot make a new product while logged out" do 
+      # Act
+      get new_product_path
+
+      # Assert
+      must_respond_with :redirect
+      must_redirect_to root_path
+
+      end 
+    end 
+
     describe "while logged in" do 
       it "can create a new product" do
         # Arrange
@@ -86,6 +133,8 @@ describe ProductsController do
         
         # Assert
         expect(Product.all.count).must_equal (start_count + 1)
+        must_redirect_to root_path
+        must_respond_with :redirect
         must_redirect_to root_path
       end
     end
@@ -121,6 +170,22 @@ describe ProductsController do
   end
   
   describe "update" do 
+
+    describe "while logged out" do 
+      it "cannot update a product when logged out" do 
+        # Arrange 
+        @magician = products(:magician)
+
+        # Act
+        get edit_product_path(@magician.id)
+
+        #Assert
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
+    end
+
+
     describe "while logged in" do 
       it "can update a product" do 
         # Arrange
