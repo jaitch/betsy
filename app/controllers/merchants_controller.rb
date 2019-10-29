@@ -35,38 +35,25 @@ class MerchantsController < ApplicationController
     redirect_to root_path
   end
   
-  def current
-    @current_merchant = Merchant.find_by(id: session[:merchant_id])
-    unless @current_merchant
-      
-      flash[:error] = "You must be logged in to do that"
-        redirect_back(fallback_location: root_path)
-        
-      end
-      # return @current_merchant
-    end
-    
-    def fulfillment
-      @ordered_products = @merchant.fulfillments
-      return @ordered_products
-    end
-    
-    private
-    
-    def merchant_params
-      return params.require(:merchant).permit(:username, :email, :provider, :uid)
-    end
-    
-    def find_merchant
-      @merchant = Merchant.find_by_id(params[:id])
-    end
-    
-    def missing_merchant
-      if @merchant.nil?
-        head :not_found
-        return
-      end
-    end
-    
+  def fulfillment
+    @ordered_products = @merchant.fulfillments
+    return @ordered_products
   end
   
+  private
+  
+  def merchant_params
+    return params.require(:merchant).permit(:username, :email, :provider, :uid)
+  end
+  
+  def find_merchant
+    @merchant = Merchant.find_by_id(params[:id])
+  end
+  
+  def missing_merchant
+    if @merchant.nil?
+      head :not_found
+      return
+    end
+  end
+end

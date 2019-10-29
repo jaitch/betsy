@@ -13,7 +13,7 @@ magician:
   description: "abracadabra!"
   photo: "url_string2"
   retire: true
-  merchant: ga-young
+  merchant: gyjin
 clown:
   name: "clown"
   price: 1.99
@@ -37,7 +37,7 @@ wizard:
   description: "whizzo!"
   photo: "url_string5"
   retire: false
-  merchant: ga-young
+  merchant: gyjin
 hotdog:
   name: "hotdog"
   price: 7.99
@@ -45,4 +45,4 @@ hotdog:
   description: "with ketchup and mustard"
   photo: "url_string6"
   retire: false
-  merchant: ga-young
+  merchant: gyjin
