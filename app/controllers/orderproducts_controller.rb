@@ -1,5 +1,6 @@
 class OrderproductsController < ApplicationController
   before_action :find_orderproduct, only: [:show, :edit, :update, :destroy]
+  before_action :if_orderproduct_missing, only: [:edit, :update, :destroy]
   # def index
   #   @orderproducts = Orderproduct.all
   # end
@@ -12,7 +13,12 @@ class OrderproductsController < ApplicationController
 
   def create
     # checks to see if product is in stock
-    @product = Product.find(params[:product_id])
+    @product = Product.find_by(id: params[:product_id])
+    if @product == nil
+      flash[:error] = "Product with id #{params[:id]} was not found!"
+      redirect_to products_path
+      return
+    end
     if @product.stock < 1
       flash[:failure] = "Out of stock. Sorry!"
       redirect_to products_path
@@ -20,8 +26,8 @@ class OrderproductsController < ApplicationController
     end
     # checks to see if there is an existing order going
     if session[:order_id]
-      @order = Order.find(session[:order_id])
-    # if there isn't an existing order, creates one
+      @order = Order.find_by(id: session[:order_id])
+      # if there isn't an existing order, creates one
     else
       @order = Order.create
       session[:order_id] = @order.id
@@ -35,10 +41,10 @@ class OrderproductsController < ApplicationController
         redirect_to products_path
         return
       else
-      # if the max number hasn't been met, the item is added to the cart and the count of that product in this order goes up by one
-      cur_orderproduct.quantity += 1
+        # if the max number hasn't been met, the item is added to the cart and the count of that product in this order goes up by one
+        cur_orderproduct.quantity += 1
       end
-    # if the order exists but that particular item isn't yet in the cart, the orderproduct is created with a quantity of 1
+      # if the order exists but that particular item isn't yet in the cart, the orderproduct is created with a quantity of 1
     else
       cur_orderproduct = Orderproduct.new(order_id: @order.id, product_id: @product.id, quantity: 1)
     end

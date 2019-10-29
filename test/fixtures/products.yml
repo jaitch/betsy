@@ -6,6 +6,7 @@ batman:
   photo: "url_string1"
   retire: false
   merchant: mariya
+  categories: [puppy, superhero]
 magician:
   name: "magician"
   price: 10.99
