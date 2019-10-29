@@ -19,8 +19,6 @@ class Merchant < ApplicationRecord
     merchant.username = auth_hash["info"]["nickname"]
     merchant.email = auth_hash["info"]["email"]
     
-    # Note that the merchant has not been saved.
-    # We'll choose to do the saving outside of this method
     return merchant
   end
   

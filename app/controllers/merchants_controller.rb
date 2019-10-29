@@ -8,34 +8,6 @@ class MerchantsController < ApplicationController
   
   def show ; end
   
-  # def login_form
-  #   @merchant = Merchant.new
-  # end
-  
-  # def login
-  #   merchantname = params[:merchant][:merchantname]
-  #   email = params[:merchant][:email]
-  #   merchant = Merchant.find_by(merchantname: merchantname)
-  #   if merchant
-  #     session[:merchant_id] = merchant.id
-  #     flash[:success] = "Successfully logged in as returning merchant #{merchantname}"
-  #     redirect_to root_path
-  #     return
-  #   else
-  #     merchant = Merchant.new(merchantname: merchantname, email: email)
-  #     if merchant.save
-  #       session[:merchant_id] = merchant.id
-  #       flash[:success] = "Successfully logged in as new merchant #{merchantname}"
-  #       redirect_to root_path
-  #       return
-  #     else
-  #       flash[:failure] = "Could not create new merchant"
-  #       redirect_to login_path
-  #       return
-  #     end
-  #   end
-  # end
-  
   def create
     auth_hash = request.env["omniauth.auth"]
     
@@ -66,38 +38,35 @@ class MerchantsController < ApplicationController
   def current
     @current_merchant = Merchant.find_by(id: session[:merchant_id])
     unless @current_merchant
+      
       flash[:error] = "You must be logged in to do that"
-      redirect_to root_path
+        redirect_back(fallback_location: root_path)
+        
+      end
+      # return @current_merchant
     end
-    # return @current_merchant
-  end
-  
-  def fulfillment
-    @ordered_products = @merchant.fulfillments
-    return @ordered_products
-  end
-  
-  # def logout
-  #   session[:merchant_id] = nil
-  #   flash[:success] = "You have been sucessfully logged out"
-  #   redirect_to root_path
-  # end
-  
-  private
-  
-  def merchant_params
-    return params.require(:merchant).permit(:username, :email, :provider, :uid)
-  end
-  
-  def find_merchant
-    @merchant = Merchant.find_by_id(params[:id])
-  end
-  
-  def missing_merchant
-    if @merchant.nil?
-      head :not_found
-      return
+    
+    def fulfillment
+      @ordered_products = @merchant.fulfillments
+      return @ordered_products
     end
+    
+    private
+    
+    def merchant_params
+      return params.require(:merchant).permit(:username, :email, :provider, :uid)
+    end
+    
+    def find_merchant
+      @merchant = Merchant.find_by_id(params[:id])
+    end
+    
+    def missing_merchant
+      if @merchant.nil?
+        head :not_found
+        return
+      end
+    end
+    
   end
   
-end

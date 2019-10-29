@@ -1,26 +1,50 @@
-<h2>Merchant:<%= @merchant.username %></h2>
-<h3> <% if session[:merchant_id] == @merchant.id%>
-      <%= link_to "Add a Category", new_category_path() %>
+<h3><% if session[:merchant_id] == @merchant.id %>
+
+      <h4>Your fulfillments:</h4>
+      <% if @ordered_products == nil %>
+      <p>You do not have any fulfillments.</p>
+      <% else %>
+
+        <%= @ordered_products.each do |orderproduct| %>
+
+          <ul>
+            <li>Order #: <%= orderproduct.order_id %></li>
+            <li>Product #: <%= orderproduct.product_id %></li>
+            <li>Quantity: <%= orderproduct.quantity %></li>
+          </ul>
+          <% end %>
+      <% end %>
     <% end %>
 </h3>
+
+<% if session[:merchant_id] == @merchant.id %>
+  <h2>All of your products:</h2>
+<% else %>
+  <h2>All available products by <%= @merchant.username %></h2>
+<% end %>
+
 <ul>
   <% @merchant.products.each do |product| %>
-  <li> Product name: <%= link_to product.name, product_path(product.id)  %> 
-    <span>
-      <% if session[:merchant_id] == @merchant.id%>
-        <%= link_to "Edit", edit_product_path(product.id), class:"btn btn-primary btn-space"%>
-    </span>
-      <% end %>
-  </li>
-  <ul>
-      <li> Price: <%= product.price %> </li>
-      <li> Stock: <%= product.stock %> </li>
-      <li> Description: <%= product.description %> </li>
-      <li> Retire: <%= product.retire %> </li> 
-      <%# link to product retire path later %>
-      <li>
-      <%= link_to "Fulfillment", fulfillment_path(@merchant) %>
-      </li>
-    </ul>
+    <% if product.retire == false || session[:merchant_id] == @merchant.id %>
+      <li> Product name: <%= link_to product.name, product_path(product.id) %> </li>
+      <ul>
+        <li> Price: <%= product.price %> </li>
+        <li> Stock: <%= product.stock %> </li>
+        <li> Description: <%= product.description %> </li>
+      </ul>
+        <span>
+          <% if session[:merchant_id] == @merchant.id %>
+            <%= link_to "Edit", edit_product_path(product.id), class:"btn btn-primary btn-space" %>
+        </span>
+          <% end %>
+    <% else %>
+    <% end %>
   <% end %>
 </ul>
+
+<% if session[:merchant_id] == @merchant.id %>
+  <%= link_to "Add a Product", new_product_path %>
+  <%= link_to "Add a Category", new_category_path %>
+<% end %>
+
+
