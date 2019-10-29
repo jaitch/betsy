@@ -32,12 +32,26 @@ describe OrderproductsController do
 
   describe 'create' do
     it 'can create a new orderproduct with valid information' do
+      # orderproduct_hash = {
+      # orderproduct: {
+      # order_id: orders(:b).id,
+      product_id = products(:clown).id
+      # quantity: 5}}
+      expect { post product_orderproducts_path(product_id) }.must_differ 'Orderproduct.count', 1
     end
-
     it 'does not create an orderproduct if the product is out of stock' do
+      product = products(:magician)
+      product.stock = 0
+      expect { post product_orderproducts_path(product.id) }.wont_change 'Orderproduct.count'
+      must_redirect_to products_path
     end
 
     it 'uses the session order id for the orderproduct order id if the is in an existing order' do
+      order = orders(:b)
+      product = products(:clown)
+      controller.session[:order_id] = 10
+      expect{(post product_orderproducts_path(product.id)).order_id}.must_equal 10
+      # test that no new orders created, and that there is one more orderproducts in this particular order
     end
 
     it 'does not let buyer add product to the cart of cart contains full stock of a product' do
@@ -48,8 +62,8 @@ describe OrderproductsController do
 
     it 'can add a product to an order that does not yet contain it, and creates a new orderproduct in the process' do
     end
-    
 
-    it ''
+
+
   end
 end
