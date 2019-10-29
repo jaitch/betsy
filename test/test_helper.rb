@@ -1,6 +1,8 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter 'test/'
+end
 require_relative '../config/environment'
 require 'rails/test_help'
 # require 'simplecov'
@@ -29,21 +31,21 @@ class ActiveSupport::TestCase
   
   def mock_auth_hash(merchant)
     return {
-      provider: merchant.provider,
-      uid: merchant.uid,
-      info: {
-        email: merchant.email,
-        nickname: merchant.username
-      }
-    }
-  end
+    provider: merchant.provider,
+    uid: merchant.uid,
+    info: {
+    email: merchant.email,
+    nickname: merchant.username
+  }
+}
+end
+
+def perform_login(merchant = nil)
+  merchant ||= Merchant.first
   
-  def perform_login(merchant = nil)
-    merchant ||= Merchant.first
-    
-    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
-    get auth_callback_path(:github)
-    
-    return merchant
-  end
+  OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
+  get auth_callback_path(:github)
+  
+  return merchant
+end
 end
