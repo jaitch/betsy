@@ -80,6 +80,7 @@ group :development do
   gem 'guard'
   gem 'guard-minitest'
   gem 'dotenv-rails'
+  gem 'pry-byebug'
 end
 
 group :test do
