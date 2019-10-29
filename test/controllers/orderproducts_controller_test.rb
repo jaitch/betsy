@@ -32,8 +32,8 @@ describe OrderproductsController do
 
   describe 'create' do
     it 'can create a new orderproduct with valid information' do
-      product_id = products(:clown).id
-      expect { post product_orderproducts_path(product_id) }.must_differ 'Orderproduct.count', 1
+        product_id = products(:clown).id
+        expect { post product_orderproducts_path(product_id) }.must_differ 'Orderproduct.count', 1
     end
 
     it 'does not create an orderproduct if the product is out of stock' do

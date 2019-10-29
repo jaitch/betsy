@@ -36,13 +36,13 @@ class OrdersController < ApplicationController
     end
   end
 
-  def destroy
-    if @order.destroy
-      flash[:success] = "Order successfully deleted!"
-      redirect_to orders_path
-      return
-    end
-  end
+  # def destroy
+  #   if @order.destroy
+  #     flash[:success] = "Order successfully deleted!"
+  #     redirect_to orders_path
+  #     return
+  #   end
+  # end
 
 
   private
