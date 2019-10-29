@@ -43,10 +43,11 @@ describe OrderproductsController do
       product = products(:magician)
       product.stock = 0
       expect { post product_orderproducts_path(product.id) }.wont_change 'Orderproduct.count'
+      must_respond_with :failure
       must_redirect_to products_path
     end
 
-    it 'uses the session order id for the orderproduct order id if the is in an existing order' do
+    it 'uses the session order id for the orderproduct order id if the is in an existing order / can add a product to an order that does not yet contain it, and creates a new orderproduct in the process' do
       product_id = products(:clown).id
       post product_orderproducts_path(product_id)
       num_orders = Order.count
@@ -60,16 +61,25 @@ describe OrderproductsController do
       expect(order.orderproducts.count).must_equal num_ops + 1
     end
 
-    it 'does not let buyer add product to the cart of cart contains full stock of a product' do
+    it 'does not let buyer add product to the cart if cart contains full stock of a product' do
+      product = products(:magician)
+      product.stock = 1
+      post product_orderproducts_path(product.id)
+      expect{ post product_orderproducts_path(product_id) }.must_respond_with :failure
+      must_redirect_to products_path
     end
 
     it 'can add product to cart that already contains that item if not yet maxed out, and increases quantity by one' do
+      product_id = products(:batman).id
+      post product_orderproducts_path(product_id)
+      order = Order.last
+      second_product = products(:batman)
+      post product_orderproducts_path(second_product.id)
+      op = order.orderproducts.last
+      expect(op.quantity).must_equal 2
     end
-
-    it 'can add a product to an order that does not yet contain it, and creates a new orderproduct in the process' do
-    end
-
-
-
+  end
+  describe 'update orderproduct quantity' do
+  
   end
 end
