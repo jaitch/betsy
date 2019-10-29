@@ -19,8 +19,16 @@ class Merchant < ApplicationRecord
     merchant.username = auth_hash["info"]["nickname"]
     merchant.email = auth_hash["info"]["email"]
     
-    # Note that the merchant has not been saved.
-    # We'll choose to do the saving outside of this method
     return merchant
+  end
+  
+  def fulfillments
+    ordered_products = []
+    self.products.each do |product|
+      product.orderproducts.each do |orderproduct|
+        ordered_products << orderproduct
+      end
+    end
+    return ordered_products
   end
 end
