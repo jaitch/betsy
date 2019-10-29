@@ -47,11 +47,17 @@ describe OrderproductsController do
     end
 
     it 'uses the session order id for the orderproduct order id if the is in an existing order' do
-      order = orders(:b)
-      product = products(:clown)
-      controller.session[:order_id] = 10
-      expect{(post product_orderproducts_path(product.id)).order_id}.must_equal 10
-      # test that no new orders created, and that there is one more orderproducts in this particular order
+      product_id = products(:clown).id
+      post product_orderproducts_path(product_id)
+      num_orders = Order.count
+      order = Order.last
+      num_ops = order.orderproducts.count
+      second_product = products(:taco)
+      post product_orderproducts_path(second_product.id)
+      # a new Order isn't created
+      expect(Order.count).must_equal num_orders
+      # there is another orderproduct within the order
+      expect(order.orderproducts.count).must_equal num_ops + 1
     end
 
     it 'does not let buyer add product to the cart of cart contains full stock of a product' do
