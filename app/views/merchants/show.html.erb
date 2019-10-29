@@ -1,10 +1,15 @@
 <h2>Merchant:<%= @merchant.username %></h2>
+<h3> <% if session[:merchant_id] == @merchant.id%>
+      <%= link_to "Add a Category", new_category_path() %>
+    <% end %>
+</h3>
 <ul>
   <% @merchant.products.each do |product| %>
-  <li> Product name: <%= product.name %> 
-    <% if session[:merchant_id] == @merchant.id%>
-      <%= link_to "Edit", edit_product_path(product.id), class:"btn btn-primary btn-space"%>
-      <%= link_to "Delete", product_path(product.id), class:"btn btn-danger btn-space", method: :delete, data: {confirm: "Are you sure?"} %>
+  <li> Product name: <%= link_to product.name, product_path(product.id)  %> 
+    <span>
+      <% if session[:merchant_id] == @merchant.id%>
+        <%= link_to "Edit", edit_product_path(product.id), class:"btn btn-primary btn-space"%>
+    </span>
       <% end %>
   </li>
   <ul>

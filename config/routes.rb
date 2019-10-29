@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
-  resources :orders#, except: [:put] do
+  resources :orders do
+    resources :orderproducts, only: [:update]
+  end
   get "/confirmation/:id", to: "orders#confirmation", as: "confirmation"
   
   resources :orderproducts, except: [:create]
@@ -10,9 +12,9 @@ Rails.application.routes.draw do
   resources :products do
     resources :orderproducts, only: [:create, :destroy]
     resources :reviews, only: [:new, :create]
-  end 
+  end
   
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html  
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
   resources :merchants
   

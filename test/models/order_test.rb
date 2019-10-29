@@ -11,9 +11,11 @@ describe Order do
       order = orders(:c)
       order.products.length.must_equal 2
     end
-  end
 
-
-  describe 'custom methods' do
+    it 'can set the products' do
+      order = Order.new
+      order.products << products(:magician)
+      order.products.first.id.must_equal products(:magician).id
+    end
   end
 end

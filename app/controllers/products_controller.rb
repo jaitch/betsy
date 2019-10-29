@@ -45,6 +45,12 @@ class ProductsController < ApplicationController
       return
     end
     
+    if session[:merchant_id].nil?
+      flash[:error] = "You must be logged in as a merchant to edit a product."
+      redirect_back(fallback_location: root_path)
+      return
+    end
+    
     @product = Product.find_by(id:params[:id])
     if @product.nil?
       redirect_to root_path

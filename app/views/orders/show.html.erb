@@ -4,26 +4,15 @@
 <% orderproducts.each do |orderproduct| %>
 <li> <%= link_to orderproduct.product.name, product_path(orderproduct.product)%>
 <br>
-Quantity:
-<select>
-  <% x = 1 %>
-    <% until x > orderproduct.product.stock %>
-      <% if x == orderproduct.quantity %>
-        <option value=x selected> <%=x%> </option>
-      <% else %>
-        <option value=x > <%=x%> </option>
-      <% end %>
-    <% x += 1 %>
-  <%end%>
-</select>
 
-
+<%= form_with model: orderproduct, class: 'update-orderproduct', url: orderproduct_path(orderproduct), method: :patch do |f| %>
+<%= f.label 'Quantity: '%>
+<%= f.select :quantity, (1..orderproduct.product.stock), selected: orderproduct.quantity %>
+<%= f.submit 'Update Quantity' %>
+<% end %>
 <%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, data: {confirm: "Are you sure?"} %>
 <br>
 </li>
 <% end %>
 </ol>
-
-
 <%= button_to 'Checkout', edit_order_path(@order), method: :get %>
-<!--<a class="btn btn-primary" href=<%=edit_order_path(@order)%>> Checkout </a> -->
