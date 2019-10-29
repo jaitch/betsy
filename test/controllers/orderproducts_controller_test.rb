@@ -35,6 +35,7 @@ describe OrderproductsController do
       product_id = products(:clown).id
       expect { post product_orderproducts_path(product_id) }.must_differ 'Orderproduct.count', 1
     end
+
     it 'does not create an orderproduct if the product is out of stock' do
       product = products(:magician)
       product.stock = 0
@@ -44,7 +45,7 @@ describe OrderproductsController do
     end
 
     it 'does not create an orderproduct if the product id is invalid' do
-      expect{ post product_orderproducts_path('-63') }.wont_change 'Orderproduct.count'
+      expect{ post product_orderproducts_path(-42)}.wont_change 'Orderproduct.count'
       must_respond_with 404
     end
 
@@ -95,6 +96,16 @@ describe OrderproductsController do
       expect{ patch orderproduct_path(op), params: orderproduct_hash }.wont_change Orderproduct.count
       must_respond_with :redirect
       expect(op.quantity).must_equal 5
+    end
+  end
+
+  describe 'destroy' do
+    it 'can delete an item from the cart' do
+      product = products(:clown)
+      post product_orderproducts_path(product.id)
+      second_product = products(:batman)
+      post product_orderproducts_path(second_product.id)
+      delete
     end
   end
 end
