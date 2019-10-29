@@ -32,11 +32,7 @@ describe OrderproductsController do
 
   describe 'create' do
     it 'can create a new orderproduct with valid information' do
-      # orderproduct_hash = {
-      # orderproduct: {
-      # order_id: orders(:b).id,
       product_id = products(:clown).id
-      # quantity: 5}}
       expect { post product_orderproducts_path(product_id) }.must_differ 'Orderproduct.count', 1
     end
     it 'does not create an orderproduct if the product is out of stock' do
@@ -45,6 +41,11 @@ describe OrderproductsController do
       expect { post product_orderproducts_path(product.id) }.wont_change 'Orderproduct.count'
       must_respond_with :failure
       must_redirect_to products_path
+    end
+
+    it 'does not create an orderproduct if the product id is invalid' do
+      expect{ post product_orderproducts_path('-63') }.wont_change 'Orderproduct.count'
+      must_respond_with 404
     end
 
     it 'uses the session order id for the orderproduct order id if the is in an existing order / can add a product to an order that does not yet contain it, and creates a new orderproduct in the process' do
@@ -65,7 +66,8 @@ describe OrderproductsController do
       product = products(:magician)
       product.stock = 1
       post product_orderproducts_path(product.id)
-      expect{ post product_orderproducts_path(product_id) }.must_respond_with :failure
+      post product_orderproducts_path(product.id)
+      must_respond_with 302
       must_redirect_to products_path
     end
 
@@ -79,7 +81,20 @@ describe OrderproductsController do
       expect(op.quantity).must_equal 2
     end
   end
+
   describe 'update orderproduct quantity' do
-  
+    it 'can change the quantity of an orderproduct in an order and save it' do
+      product = products(:clown)
+      post product_orderproducts_path(product.id)
+      order = Order.last
+      op = order.orderproducts.last
+      orderproduct_hash = {
+      orderproduct: {
+      quantity: 5
+      }}
+      expect{ patch orderproduct_path(op), params: orderproduct_hash }.wont_change Orderproduct.count
+      must_respond_with :redirect
+      expect(op.quantity).must_equal 5
+    end
   end
 end
