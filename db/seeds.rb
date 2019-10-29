@@ -97,15 +97,15 @@ CSV.foreach(REVIEW_FILE, :headers => true) do |row|
   review.rating = row['rating']
   review.text = row['text']
   successful = review.save
-
+  
   if !successful
     review_failures << review
     puts "Failed to save review: #{review.errors.inspect}"
   else
     puts "Created review: #{review.inspect}"
   end
- end
-  
+end
+
 puts "Loading raw media data from #{ORDERPRODUCT_FILE}"
 orderproducts_failures = []
 

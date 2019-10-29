@@ -23,14 +23,13 @@
       <li class="nav-item">
         <%= link_to "View All Products", products_path, class: "nav-link" %>
       </li>
+      <%= merchants_dropdown %>
+      <%= categories_dropdown %>
       <% if session[:merchant_id]%>
       <li class="nav-item">
-        <%= link_to "Add a product", new_product_path, class: "nav-link" %>
         <%= link_to "Manage My Store", merchant_path(session[:merchant_id]), class: "nav-link" %>
       </li>
       <% end %>
-      <%= merchants_dropdown%>
-      <%= categories_dropdown%>
       <% if session[:order_id] != nil %>
         <li class="nav-item">
         <%= link_to "Cart", order_path(session[:order_id]), class: "nav-link" %>

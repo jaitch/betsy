@@ -12,8 +12,8 @@ describe Merchant do
   describe "instantiation" do
     it "can be instantiated" do
       new_merchant = Merchant.new(
-        username: "Peter",
-        email: "peter@gmail.com"
+      username: "Peter",
+      email: "peter@gmail.com"
       )
       expect(new_merchant.valid?).must_equal true
     end
@@ -56,3 +56,6 @@ describe Merchant do
     end
   end
 end
+
+# needs tests for building from github
+# fulfillments method
