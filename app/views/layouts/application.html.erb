@@ -1,60 +1,52 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title>Petsy</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <title>Petsy</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-   <body>
-  <header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <%= link_to "Petsy Betsy", root_path%>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <body>
 
+    <nav class="navbar navbar-expand-md fixed-top navbar-light" style="background-color: #e3f2fd;">
+      <a class="navbar-brand"> <%= link_to "Petsy", root_path %></a>
+     
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <%= link_to "View All Products", products_path, class: "nav-link" %>
-      </li>
-      <%= merchants_dropdown %>
-      <%= categories_dropdown %>
-      <% if session[:merchant_id]%>
-      <li class="nav-item">
-        <%= link_to "Manage My Store", merchant_path(session[:merchant_id]), class: "nav-link" %>
-      </li>
-      <% end %>
-      <% if session[:order_id] != nil %>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="nav justify-content-right">
+          <li class="nav-item">
+            <%= link_to "All Products", products_path, class: "nav-link" %>
+          </li>
+          <%= merchants_dropdown %>
+          <%= categories_dropdown %>
+        <% if session[:order_id] != nil %>
         <li class="nav-item">
         <%= link_to "Cart", order_path(session[:order_id]), class: "nav-link" %>
         </li>
       <% end %>
-
-    </ul>
-  </div>
-</nav>
+        </ul>
+      </div>
+    </nav>
   </header>
 
-  <section class="flash">
-    <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
-  </section>
+  
 
-    <% if session[:merchant_id] %>
-      <%= link_to "Log out", logout_path, method: "delete" %>
-    <% else %>
-      <%= link_to "Login with Github", github_login_path %>
-    <% end %>
-
-
-    <%= yield %>
+<%= yield %>
 
   </body>
 </html>
