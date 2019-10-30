@@ -29,15 +29,23 @@ class MerchantsController < ApplicationController
   end
   
   def destroy
-    session[:merchant_id] = nil
-    flash[:success] = "Successfully logged out!"
+    if session[:merchant_id] == nil
+      flash[:error] = "You cannot log out because you are not logged in."
+    else
+      session[:merchant_id] = nil
+      flash[:success] = "Successfully logged out!"
+    end
     
     redirect_to root_path
   end
   
   def fulfillment
-    @ordered_products = @merchant.fulfillments
-    return @ordered_products
+    if session[:merchant_id] == nil
+      flash[:error] = "You cannot see fulfillments because you are not logged in."
+    else
+      @ordered_products = @merchant.fulfillments
+      return @ordered_products
+    end
   end
   
   private

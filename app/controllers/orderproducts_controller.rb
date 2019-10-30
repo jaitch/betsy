@@ -4,13 +4,13 @@ class OrderproductsController < ApplicationController
   # def index
   #   @orderproducts = Orderproduct.all
   # end
-
+  
   # def show ; end
-
+  
   def new
     @orderproduct = Orderproduct.new
   end
-
+  
   def create
     # checks to see if product is in stock
     @product = Product.find_by(id: params[:product_id])
@@ -20,7 +20,7 @@ class OrderproductsController < ApplicationController
       return
     end
     if @product.stock < 1
-      flash[:failure] = "Out of stock. Sorry!"
+      flash[:error] = "Out of stock. Sorry!"
       redirect_to products_path
       return
     end
@@ -37,8 +37,8 @@ class OrderproductsController < ApplicationController
     if cur_orderproduct != nil
       # if the max number of available stock for that product is already in the cart, buyer is unable to add another one to the order. we need this because items aren't deducted from stock until after checkout
       if cur_orderproduct.quantity == @product.stock
-        flash[:failure] = "No more in stock. Sorry!"
-        redirect_to products_path
+        flash[:error] = "No more in stock. Sorry!"
+        redirect_back(fallback_location: products_path)
         return
       else
         # if the max number hasn't been met, the item is added to the cart and the count of that product in this order goes up by one
@@ -52,36 +52,36 @@ class OrderproductsController < ApplicationController
       flash[:success] = "Item added to cart."
       redirect_to order_path(@order.id)
       return
-    else flash[:failure] = "Item NOT added to cart."
+    else flash[:error] = "Item NOT added to cart."
       render products_path
       return
     end
   end
-
+  
   def edit ; end
-
+  
   def update
     @orderproduct.update(orderproduct_params)
     redirect_to order_path(@orderproduct.order) # so that update is available again (goes from grey to black)
     return
   end
-
+  
   def destroy
     if @orderproduct.destroy
       flash[:success] = "Work successfully deleted!"
       redirect_to order_path(@orderproduct.order)
     end
   end
-
+  
   private
   def orderproduct_params
     return params.require(:orderproduct).permit(:order_id, :product_id, :quantity)
   end
-
+  
   def find_orderproduct
     @orderproduct = Orderproduct.find_by(id: params[:id])
   end
-
+  
   def if_orderproduct_missing
     if @orderproduct.nil?
       flash[:error] = "Orderproduct with id #{params[:id]} was not found!"
