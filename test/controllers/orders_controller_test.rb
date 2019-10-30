@@ -62,8 +62,8 @@ describe OrdersController do
       updated_order = Order.find_by(id: order.id)
       updated_product = updated_order.products.first
       expect(updated_order.name).must_equal checkout_hash[:order][:name]
+      expect(updated_order.status).must_equal "paid"
       expect(updated_product.stock).must_equal 19
     end
-    # Was going to test that status changed from 'pending' to 'paid' but that happens with a hidden field in the form, so not appropriate to test?
   end
 end
