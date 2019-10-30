@@ -126,11 +126,10 @@ CSV.foreach(ORDERPRODUCT_FILE, :headers => true) do |row|
 end
 
 puts "Loading raw media data from #{CATEGORY_PRODUCTS_FILE}"
-category_products_failures = []
 CSV.foreach(CATEGORY_PRODUCTS_FILE, :headers=>true ) do |row|
   category = Category.find_by(id: row["category_id"])
   puts "The category is #{category}!"
-  product = Product.find_by(id: row["product_id".to_i])
+  product = Product.find_by(id: row["product_id"])
   puts "The product is #{product}!"
   product.categories << category
 end 
