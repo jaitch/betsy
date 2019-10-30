@@ -12,7 +12,6 @@ describe OrderproductsController do
     it 'does not create an orderproduct if the product is out of stock' do
       product = products(:magician)
       product.stock = 0
-      binding.pry
       expect { post product_orderproducts_path(product.id) }.wont_change 'Orderproduct.count'
       must_respond_with :failure
       must_redirect_to products_path
