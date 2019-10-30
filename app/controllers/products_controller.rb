@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
   
   def new
     if session[:merchant_id].nil?
-      flash[:error] = "You must be logged in as a merchant to add a product."
+      flash[:warning] = "You must be logged in as a merchant to add a product."
       redirect_back(fallback_location: root_path)
       return
     end
@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
       redirect_to root_path
       return
     else 
-      flash.now[:warning] = "Your product could not be saved because #{@product.errors.full_messages}"
+      flash.now[:danger] = "Your product could not be saved because #{@product.errors.full_messages}"
       render :new
       return
     end
@@ -44,21 +44,15 @@ class ProductsController < ApplicationController
       redirect_to root_path
       return
     end
-
-    if session[:merchant_id] != @product.merchant.id 
-      flash[:error] = "You cannot update another merchant's product(s)"
-      redirect_back(fallback_location: root_path)
-      return 
-    elsif session[:merchant_id].nil?
-      flash[:error] = "You must be logged in as a merchant to edit a product."
-      redirect_back(fallback_location: root_path)
-      return
-    end
     
     if session[:merchant_id].nil?
-      flash[:error] = "You must be logged in as a merchant to edit a product."
+      flash[:warning] = "You must be logged in as a merchant to edit a product."
       redirect_back(fallback_location: root_path)
       return
+    elsif session[:merchant_id] != @product.merchant.id 
+      flash[:warning] = "You cannot update another merchant's product(s)"
+      redirect_back(fallback_location: root_path)
+      return 
     end
   end
   
@@ -73,7 +67,7 @@ class ProductsController < ApplicationController
       flash[:success] = "You updated a product successfully!"
       redirect_to root_path
     else 
-      flash[:warning] = "This product did not product because #{@product.errors.messages}"
+      flash[:warning] = "This product was not updated because #{@product.errors.messages}"
       redirect_to edit_product_path 
       return 
     end
