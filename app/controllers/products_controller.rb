@@ -25,7 +25,6 @@ class ProductsController < ApplicationController
   end
   
   def create
-    
     @product = Product.new(product_params.merge(merchant_id: session[:merchant_id])) # merge product params with session based ones
     if @product.save 
       flash[:success] = "Your product has been added."
@@ -39,21 +38,26 @@ class ProductsController < ApplicationController
   end
   
   def edit 
-    if session[:merchant_id].nil?
-      flash[:error] = "You must be logged in as a merchant to edit a product."
-      redirect_back(fallback_location: root_path)
-      return
-    end
-    
-    if session[:merchant_id].nil?
-      flash[:error] = "You must be logged in as a merchant to edit a product."
-      redirect_back(fallback_location: root_path)
-      return
-    end
-    
     @product = Product.find_by(id:params[:id])
+    
     if @product.nil?
       redirect_to root_path
+      return
+    end
+
+    if session[:merchant_id] != @product.merchant.id 
+      flash[:error] = "You cannot update another merchant's product(s)"
+      redirect_back(fallback_location: root_path)
+      return 
+    elsif session[:merchant_id].nil?
+      flash[:error] = "You must be logged in as a merchant to edit a product."
+      redirect_back(fallback_location: root_path)
+      return
+    end
+    
+    if session[:merchant_id].nil?
+      flash[:error] = "You must be logged in as a merchant to edit a product."
+      redirect_back(fallback_location: root_path)
       return
     end
   end
