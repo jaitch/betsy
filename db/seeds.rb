@@ -14,6 +14,7 @@ PRODUCT_FILE = Rails.root.join('db', 'seed_data', 'products.csv')
 ORDERPRODUCT_FILE = Rails.root.join('db', 'seed_data', 'orderproducts-seeds.csv')
 ORDER_FILE = Rails.root.join('db', 'seed_data', 'orders-seeds.csv')
 REVIEW_FILE = Rails.root.join('db', 'seed_data', 'reviews.csv')
+CATEGORY_PRODUCTS_FILE = Rails.root.join('db', 'seed_data', 'categories-products-seeds.csv')
 
 puts "Loading raw media data from #{MERCHANT_FILE}"
 merchants_failures = []
@@ -123,3 +124,20 @@ CSV.foreach(ORDERPRODUCT_FILE, :headers => true) do |row|
     puts "Created orderproduct: #{orderproduct.inspect}"
   end
 end
+
+puts "Loading raw media data from #{CATEGORY_PRODUCTS_FILE}"
+category_products_failures = []
+CSV.foreach(CATEGORY_PRODUCTS_FILE, :headers=>true ) do |row|
+  category = Category.find_by(id: row["category_id"])
+  puts "The category is #{category}!"
+  product = Product.find_by(id: row["product_id".to_i])
+  puts "The product is #{product}!"
+  product.categories << category
+end 
+
+puts "Manually resetting PK sequence on each table"
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
+puts "done"

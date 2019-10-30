@@ -25,7 +25,6 @@ class ProductsController < ApplicationController
   end
   
   def create
-    
     @product = Product.new(product_params.merge(merchant_id: session[:merchant_id])) # merge product params with session based ones
     if @product.save 
       flash[:success] = "Your product has been added."
