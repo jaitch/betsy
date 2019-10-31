@@ -10,10 +10,10 @@ describe OrderproductsController do
     end
 
     it 'does not create an orderproduct if the product is out of stock' do
-      product = products(:magician)
-      product.stock = 0
+      product = products(:wizard)
+      post product_orderproducts_path(product.id) # this takes the only one in stock
       expect { post product_orderproducts_path(product.id) }.wont_change 'Orderproduct.count'
-      must_respond_with :failure
+      expect(flash[:failure]).must_include "Sorry"
       must_redirect_to products_path
     end
 
@@ -62,13 +62,15 @@ describe OrderproductsController do
       post product_orderproducts_path(product.id)
       order = Order.last
       op = order.orderproducts.last
+      id = op.id
       orderproduct_hash = {
       orderproduct: {
       quantity: 5
       }}
       expect{ patch orderproduct_path(op.id), params: orderproduct_hash }.wont_change Orderproduct.count
       must_respond_with :redirect
-      expect(op.quantity).must_equal 5
+      updated_op = Orderproduct.find_by(id: id)
+      expect(updated_op.quantity).must_equal 5
     end
   end
 
