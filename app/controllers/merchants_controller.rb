@@ -21,7 +21,6 @@ class MerchantsController < ApplicationController
       if merchant
         flash[:success] = "Logged in as returning merchant #{merchant.username}"
       else
-        gyjin/merch-fulfillment
         merchant = Merchant.build_from_github(auth_hash)
         if merchant.save
           flash[:success] = "Logged in as new merchant #{merchant.username}"
@@ -46,15 +45,6 @@ class MerchantsController < ApplicationController
     
     redirect_to root_path
   end
-  
-  # def fulfillment
-  #   if session[:merchant_id] == nil
-  #     flash[:error] = "You cannot see fulfillments because you are not logged in."
-  #   else
-  #     @ordered_products = @merchant.fulfillments
-  #     return @ordered_products
-  #   end
-  # end
   
   private
   
