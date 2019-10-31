@@ -14,13 +14,16 @@ class OrderproductsController < ApplicationController
   def create
     # checks to see if product is in stock
     @product = Product.find_by(id: params[:product_id])
-    if @product == nil
-      flash[:error] = "Product with id #{params[:id]} was not found!"
-      redirect_to products_path
-      return
-    end
+
+    # I think this is a duplicate of the code in products_controller line 11 -Julia K
+    #
+    # if @product == nil
+    #   flash.now[:warning] = "Product with id #{params[:id]} was not found!"
+    #   redirect_to products_path
+    #   return
+    # end
     if @product.stock < 1
-      flash[:failure] = "Out of stock. Sorry!"
+      flash[:danger] = "Out of stock. Sorry!"
       redirect_to products_path
       return
     end
@@ -37,7 +40,7 @@ class OrderproductsController < ApplicationController
     if cur_orderproduct != nil
       # if the max number of available stock for that product is already in the cart, buyer is unable to add another one to the order. we need this because items aren't deducted from stock until after checkout
       if cur_orderproduct.quantity == @product.stock
-        flash[:failure] = "No more in stock. Sorry!"
+        flash[:danger] = "No more in stock. Sorry!"
         redirect_to products_path
         return
       else
@@ -52,7 +55,7 @@ class OrderproductsController < ApplicationController
       flash[:success] = "Item added to cart."
       redirect_to order_path(@order.id)
       return
-    else flash[:failure] = "Item NOT added to cart."
+    else flash[:danger] = "Item NOT added to cart."
       render products_path
       return
     end
@@ -68,7 +71,7 @@ class OrderproductsController < ApplicationController
 
   def destroy
     if @orderproduct.destroy
-      flash[:success] = "Work successfully deleted!"
+      flash[:success] = "Item successfully deleted!"
       redirect_to order_path(@orderproduct.order)
     end
   end
@@ -84,7 +87,7 @@ class OrderproductsController < ApplicationController
 
   def if_orderproduct_missing
     if @orderproduct.nil?
-      flash[:error] = "Orderproduct with id #{params[:id]} was not found!"
+      flash[:warning] = "Orderproduct with id #{params[:id]} was not found!"
       redirect_to order_path(:order_id)
       return
     end
