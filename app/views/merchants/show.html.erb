@@ -1,11 +1,11 @@
 <h3><% if session[:merchant_id] == @merchant.id %>
 
       <h4>Your fulfillments:</h4>
-      <% if @ordered_products == nil %>
+      <% if @ordered_products.length == 0 %>
       <p>You do not have any fulfillments.</p>
       <% else %>
 
-        <%= @ordered_products.each do |orderproduct| %>
+        <% @ordered_products.each do |orderproduct| %>
 
           <ul>
             <li>Order #: <%= orderproduct.order_id %></li>
