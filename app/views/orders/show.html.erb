@@ -1,19 +1,32 @@
-<h3> Contents of Your Shopping Cart: </h3>
-<% orderproducts = @order.orderproducts %>
-<ol>
-<% orderproducts.each do |orderproduct| %>
-<li> <%= link_to orderproduct.product.name, product_path(orderproduct.product)%>
-<br>
+<div class="container-fluid text-center text-md-left">
 
-<%= form_with model: orderproduct, class: 'update-orderproduct', url: orderproduct_path(orderproduct), method: :patch do |f| %>
-<%= f.label 'Quantity: '%>
-<%= f.select :quantity, (1..orderproduct.product.stock), selected: orderproduct.quantity %>
-<%= f.submit 'Update Quantity' %>
-<% end %>
-<%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, data: {confirm: "Are you sure?"} %>
-<br>
-</li>
-<% end %>
-</ol>
-<%= button_to 'Checkout', edit_order_path(@order), method: :get %>
-<a class="col-auto btn btn-secondary btn-lg" href="/orders/<%=@order%>/edit">Checkout</a>
+  <h3> Contents of Your Shopping Cart: </h3>
+  <% orderproducts = @order.orderproducts %>
+  <div class="container">
+  <div class="row" align="center">
+    <% orderproducts.each do |orderproduct|%>
+      <%= render partial: "products/product", locals: { product: orderproduct.product }%>
+    <% end %>
+  </div>
+</div>
+
+  <ol>
+  <% orderproducts.each do |orderproduct| %>
+  <li> <%= link_to orderproduct.product.name, product_path(orderproduct.product)%>
+  <br>
+
+  <%= form_with model: orderproduct, class: 'update-orderproduct', url: orderproduct_path(orderproduct), method: :patch do |f| %>
+  <%= f.label 'Quantity: '%>
+  <%= f.select :quantity, (1..orderproduct.product.stock), selected: orderproduct.quantity %>
+  <br>
+<%= f.submit 'Update Quantity', class: 'btn btn-secondary' %>
+  <% end %>
+  <br>
+  <%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, class: "btn btn-primary btn-sm", data: {confirm: "Are you sure?"} %>
+  <br>
+
+  </li>
+  <% end %>
+  </ol>
+  <a class="col-auto btn btn-secondary btn-lg" href="/orders/<%=@order.id %>/edit">Checkout</a>
+</div>
