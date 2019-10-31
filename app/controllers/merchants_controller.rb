@@ -19,7 +19,7 @@ class MerchantsController < ApplicationController
       if merchant.save
         flash[:success] = "Logged in as new merchant #{merchant.username}"
       else
-        flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
+        flash[:warning] = "Could not create new merchant account: #{merchant.errors.messages}"
         return redirect_to root_path
       end
     end
