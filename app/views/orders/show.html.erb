@@ -2,18 +2,14 @@
 
   <h3> Contents of Your Shopping Cart: </h3>
   <% orderproducts = @order.orderproducts %>
-  <div class="container">
-  <div class="row" align="center">
-    <% orderproducts.each do |orderproduct|%>
-      <%= render partial: "products/product", locals: { product: orderproduct.product }%>
-    <% end %>
-  </div>
-</div>
 
   <ol>
   <% orderproducts.each do |orderproduct| %>
   <li> <%= link_to orderproduct.product.name, product_path(orderproduct.product)%>
   <br>
+<%= link_to product_path(orderproduct.product.id) do %>
+      <img class="product-image", style="width:200px;height:200px", src="<%= orderproduct.product.photo%>">
+    <% end %>
 
   <%= form_with model: orderproduct, class: 'update-orderproduct', url: orderproduct_path(orderproduct), method: :patch do |f| %>
   <%= f.label 'Quantity: '%>
