@@ -1,6 +1,8 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter 'test/'
+end
 require_relative '../config/environment'
 require 'rails/test_help'
 # require 'simplecov'
@@ -36,18 +38,14 @@ class ActiveSupport::TestCase
     nickname: merchant.username
     }}
   end
+
+
+def perform_login(merchant = nil)
+  merchant ||= Merchant.first
   
-  def perform_login(merchant = nil)
-    # if session[:merchant_id] != nil
-    #   flash[:error] = "A merchant is already logged in."
-    #   redirect_back(fallback_location: root_path)
-    # else
-    merchant ||= Merchant.first
-    
-    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
-    get auth_callback_path(:github)
-    
-    return merchant
-    # end
-  end
+  OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
+  get auth_callback_path(:github)
+  
+  return merchant
+end
 end

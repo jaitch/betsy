@@ -1,34 +1,7 @@
 require "test_helper"
 
 describe OrderproductsController do
-  # describe 'index' do
-  #   it "responds with success when there are many orderproducts saved" do
-  #     op1 = orderproducts(:op1)
-  #     op2 = orderproducts(:op2)
-  #     op3 = orderproducts(:op3)
-  #     get orderproducts_path
-  #     must_respond_with :success
-  #   end
-  #   it "responds with success when there are no orderproducts saved" do
-  #     orderproduct = orderproducts(:op1)
-  #     delete orderproduct_path(orderproduct)
-  #     get orderproduct_path(orderproduct.id)
-  #     get orderproducts_path
-  #     must_respond_with :success
-  #   end
-  # end
-  # describe 'show' do
-  #   it 'responds with success when showing an existing valid orderproduct' do
-  #     op = orderproducts(:op1)
-  #     if Orderproduct.count != 1
-  #       puts "No orderproduct saved."
-  #     end
-  #     get orderproduct_path(op.id)
-  #     must_respond_with :success
-  #   end
-  #   it 'responds with 404 when given an invalid orderproduct id' do
-  #   end
-  # end
+  # had written index and show tests, but Rails objected bc there aren't views for those
 
   describe 'create' do
     it 'can create a new orderproduct with valid information' do
@@ -37,10 +10,10 @@ describe OrderproductsController do
     end
 
     it 'does not create an orderproduct if the product is out of stock' do
-      product = products(:magician)
-      product.stock = 0
+      product = products(:wizard)
+      post product_orderproducts_path(product.id) # this takes the only one in stock
       expect { post product_orderproducts_path(product.id) }.wont_change 'Orderproduct.count'
-      must_respond_with :failure
+      expect(flash[:failure]).must_include "Sorry"
       must_redirect_to products_path
     end
 
@@ -89,13 +62,15 @@ describe OrderproductsController do
       post product_orderproducts_path(product.id)
       order = Order.last
       op = order.orderproducts.last
+      id = op.id
       orderproduct_hash = {
       orderproduct: {
       quantity: 5
       }}
       expect{ patch orderproduct_path(op.id), params: orderproduct_hash }.wont_change Orderproduct.count
       must_respond_with :redirect
-      expect(op.quantity).must_equal 5
+      updated_op = Orderproduct.find_by(id: id)
+      expect(updated_op.quantity).must_equal 5
     end
   end
 

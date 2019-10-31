@@ -157,9 +157,9 @@ describe ProductsController do
     describe "while logged in" do 
       it "can get the edit a product page" do 
         #Arrange 
-        perform_login()
         @magician = products(:magician)
-        
+        perform_login(@magician.merchant)
+       
         # Act
         get edit_product_path(@magician)
         
@@ -211,6 +211,20 @@ describe ProductsController do
         @magician.stock.must_equal 12
         @magician.retire.must_equal true
       end 
+
+      it "cannot update another merchant's product" do 
+        # Arrange
+        @magician = products(:magician)
+        @batman = products(:batman)
+        perform_login(@magician.merchant)
+
+        #Act
+        get edit_product_path(@batman.merchant)
+
+        #Assert
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
     end 
   end 
 end #end Products controller
