@@ -1,20 +1,17 @@
 require "test_helper"
 
 describe Merchant do
-  before do
-    merchant = Merchant.new(username: "gyj", email: "email")
-    merchant.save
-    product = Product.new(name: "new product", stock: 10, price: 12.00, merchant_id: merchant.id)
-    product.save
-  end
-  # can get rid of this before do when fixtures are added
-  
   describe "instantiation" do
     it "can be instantiated" do
+      
       new_merchant = Merchant.new(
       username: "Peter",
-      email: "peter@gmail.com"
+      email: "peter@gmail.com",
+      uid: 90587023,
+      provider: "github"
       )
+      
+      new_merchant.save!
       expect(new_merchant.valid?).must_equal true
     end
     
@@ -29,8 +26,8 @@ describe Merchant do
     it "can have many products" do
       merchant = Merchant.first
       
-      expect(Merchant.products.count).must_be :>=, 0
-      Merchant.products.each do |product|
+      expect(merchant.products.count).must_be :>=, 0
+      merchant.products.each do |product|
         expect(product).must_be_instance_of Product
       end
     end
@@ -54,8 +51,29 @@ describe Merchant do
       expect(@merchant.errors.messages).must_include :email
       expect(@merchant.errors.messages[:email]).must_equal ["can't be blank"]
     end
+    
+    it "must have a uid" do
+      @merchant.uid = nil
+      expect(@merchant.valid?).must_equal false
+      expect(@merchant.errors.messages).must_include :uid
+      expect(@merchant.errors.messages[:uid]).must_equal ["can't be blank"]
+    end  
+    
+    it "must have a provider" do
+      @merchant.provider = nil
+      expect(@merchant.valid?).must_equal false
+      expect(@merchant.errors.messages).must_include :provider
+      expect(@merchant.errors.messages[:provider]).must_equal ["can't be blank"]
+    end
+  end
+  
+  describe "fulfillments" do
+    it "can properly get all orderproducts for a merchant" do
+      merchant = merchants(:gyjin)
+      fulfillment = merchant.fulfillments
+      expect(fulfillment).must_be_instance_of Array
+      expect(fulfillment.length).must_equal 2
+      expect(fulfillment[0]).must_be_instance_of Orderproduct
+    end
   end
 end
-
-# needs tests for building from github
-# fulfillments method

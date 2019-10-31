@@ -29,21 +29,25 @@ class ActiveSupport::TestCase
   
   def mock_auth_hash(merchant)
     return {
-      provider: merchant.provider,
-      uid: merchant.uid,
-      info: {
-        email: merchant.email,
-        nickname: merchant.username
-      }
-    }
+    provider: merchant.provider,
+    uid: merchant.uid,
+    info: {
+    email: merchant.email,
+    nickname: merchant.username
+    }}
   end
   
   def perform_login(merchant = nil)
+    # if session[:merchant_id] != nil
+    #   flash[:error] = "A merchant is already logged in."
+    #   redirect_back(fallback_location: root_path)
+    # else
     merchant ||= Merchant.first
     
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
     get auth_callback_path(:github)
     
     return merchant
+    # end
   end
 end
