@@ -9,4 +9,11 @@ class Product < ApplicationRecord
   validates :name, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :stock, presence: true, numericality: { only_integer: true, greater_than: -1 }
+  
+  # TODO: test me
+  def average_rating
+    if self.reviews.count > 0
+      (self.reviews.map{ |review| review.rating }.sum / self.reviews.count.to_f).round(1)
+    end
+  end
 end

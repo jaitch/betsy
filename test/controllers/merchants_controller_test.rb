@@ -38,6 +38,7 @@ describe MerchantsController do
         must_redirect_to root_path
         _(Merchant.count).must_equal start_count + 1
         _(session[:merchant_id]).must_equal Merchant.last.id
+        _(flash[:success]).wont_be_nil
       end
       
       it "can log in an existing user and redirects to the root route" do
@@ -49,7 +50,7 @@ describe MerchantsController do
         must_redirect_to root_path
         _(session[:merchant_id]).must_equal merchant.id
         _(Merchant.count).must_equal start_count
-        # flash[:error].wont_be_nil, test for flash messages?
+        _(flash[:success]).wont_be_nil
       end
       
       it "redirects to the login route if given invalid user data" do
@@ -61,11 +62,80 @@ describe MerchantsController do
         must_redirect_to root_path
         _(Merchant.count).must_equal start_count
         _(session[:merchant_id]).must_equal nil
+        _(flash[:error]).wont_be_nil
       end
     end
     
-    # need tests for when merchant is signed in and can't sign in again
-    # destroy, successfully log out
-    # fulfillment, correct number of orderproducts for a merchant
+    describe "destroy" do
+      it "cannot logout because guest user is not logged in" do
+        start_count = Merchant.count
+        delete logout_path
+        _(Merchant.count).must_equal start_count
+        _(session[:merchant_id]).must_equal nil
+        _(flash[:error]).wont_be_nil
+      end
+    end
+    
+    describe "fulfillment" do
+      # the way our website is organized, this would technically be a html view test, which we haven't learned about yet
+      # the view page looks differently depending on whether a user is logged in or not, and calls the "fulfillment" method only if the user is logged in
+      # the fulfillment method's path is the show path 
+    end
+  end
+  
+  
+  describe "as a logged-in merchant" do
+    describe "index" do
+      it "can get the index path" do
+        get merchants_path
+        
+        must_respond_with :success
+      end
+    end
+    
+    describe "show" do
+      it "can get a valid merchant" do
+        get merchant_path(@merchant.id)
+        
+        must_respond_with :success
+      end
+      
+      it "will redirect for an invalid merchant" do
+        get merchant_path(-1)
+        
+        must_respond_with :not_found
+      end
+    end
+    
+    describe "create" do
+      it "will not let merchant log in again" do
+        start_count = Merchant.count
+        merchant = merchants(:mariya)
+        
+        perform_login(merchant)
+        
+        perform_login(merchant)
+        
+        must_respond_with :redirect
+        _(Merchant.count).must_equal start_count
+        _(session[:merchant_id]).must_equal merchant.id
+        _(flash[:error]).wont_be_nil
+      end
+      
+    end
+    
+    describe "destroy" do
+      it "can log out merchant" do
+        merchant = merchants(:mariya)
+        
+        perform_login(merchant)
+        
+        start_count = Merchant.count
+        delete logout_path
+        _(Merchant.count).must_equal start_count
+        _(session[:merchant_id]).must_equal nil
+        _(flash[:success]).wont_be_nil
+      end
+    end
   end
 end
