@@ -8,11 +8,12 @@
 <%= form_with model: orderproduct, class: 'update-orderproduct', url: orderproduct_path(orderproduct), method: :patch do |f| %>
 <%= f.label 'Quantity: '%>
 <%= f.select :quantity, (1..orderproduct.product.stock), selected: orderproduct.quantity %>
-<%= f.submit 'Update Quantity' %>
+<a class="col-auto btn btn-secondary btn-lg" href= < f.submit > Update Quantity </a>
 <% end %>
 <%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, data: {confirm: "Are you sure?"} %>
 <br>
 </li>
 <% end %>
 </ol>
+<a type="button" href="/products" class="btn btn-primary">Keep Shopping</a>
 <%= button_to 'Checkout', edit_order_path(@order), method: :get %>
