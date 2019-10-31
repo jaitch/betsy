@@ -6,26 +6,33 @@ class MerchantsController < ApplicationController
     @all_merchants = Merchant.all
   end
   
-  def show ; end
+  def show
+    @ordered_products = @merchant.fulfillments
+  end
   
   def create
-    auth_hash = request.env["omniauth.auth"]
-    
-    merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
-    if merchant
-      flash[:success] = "Logged in as returning merchant #{merchant.username}"
+    if session[:merchant_id]
+      flash[:error] = "A merchant is already logged in."
+      redirect_back(fallback_location: root_path)
     else
-      merchant = Merchant.build_from_github(auth_hash)
-      if merchant.save
-        flash[:success] = "Logged in as new merchant #{merchant.username}"
+      auth_hash = request.env["omniauth.auth"]
+      
+      merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
+      if merchant
+        flash[:success] = "Logged in as returning merchant #{merchant.username}"
       else
-        flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
-        return redirect_to root_path
+        merchant = Merchant.build_from_github(auth_hash)
+        if merchant.save
+          flash[:success] = "Logged in as new merchant #{merchant.username}"
+        else
+          flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
+          return redirect_to root_path
+        end
       end
+      
+      session[:merchant_id] = merchant.id
+      return redirect_to root_path
     end
-    
-    session[:merchant_id] = merchant.id
-    return redirect_to root_path
   end
   
   def destroy
@@ -39,14 +46,14 @@ class MerchantsController < ApplicationController
     redirect_to root_path
   end
   
-  def fulfillment
-    if session[:merchant_id] == nil
-      flash[:error] = "You cannot see fulfillments because you are not logged in."
-    else
-      @ordered_products = @merchant.fulfillments
-      return @ordered_products
-    end
-  end
+  # def fulfillment
+  #   if session[:merchant_id] == nil
+  #     flash[:error] = "You cannot see fulfillments because you are not logged in."
+  #   else
+  #     @ordered_products = @merchant.fulfillments
+  #     return @ordered_products
+  #   end
+  # end
   
   private
   
