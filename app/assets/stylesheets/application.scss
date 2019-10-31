@@ -30,6 +30,8 @@ COLOR PALETTE
 
 1. Fonts
 2. Body and some general stuff
+
+
 3. Home
 	3.1 Currency
 	3.2 Language
@@ -64,22 +66,21 @@ COLOR PALETTE
 2. Body and some general stuff
 *********************************/
 
-*
-{
-	margin: 0;
-	padding: 0;
-}
+
 
 body
 {
 	font-family: 'Poppins', sans-serif;
-	font-size: 14px;
-	line-height: 23px;
+	font-size: 1em;
 	font-weight: 400;
 	background: #FFFFFF;
 	color: #1e1e27;
 	padding-top: 6rem;
+	// margin-left: 2em;
+	// margin-right: 2em;
 }
+
+
 
 div
 {
@@ -88,6 +89,10 @@ div
 	-webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+main{
+	margin-left: 2em;
+	margin-right: 2em;
 }
 ul
 {
@@ -234,43 +239,38 @@ section
 {
 	float: right;
 }
-// .navbar-nav
+// .trans_200
 // {
-// 	margin: 5em;
-// 	flex-flow: ;
+// 	-webkit-transition: all 200ms ease;
+// 	-moz-transition: all 200ms ease;
+// 	-ms-transition: all 200ms ease;
+// 	-o-transition: all 200ms ease;
+// 	transition: all 200ms ease;
 // }
-.trans_200
-{
-	-webkit-transition: all 200ms ease;
-	-moz-transition: all 200ms ease;
-	-ms-transition: all 200ms ease;
-	-o-transition: all 200ms ease;
-	transition: all 200ms ease;
-}
-.trans_300
-{
-	-webkit-transition: all 300ms ease;
-	-moz-transition: all 300ms ease;
-	-ms-transition: all 300ms ease;
-	-o-transition: all 300ms ease;
-	transition: all 300ms ease;
-}
-.trans_400
-{
-	-webkit-transition: all 400ms ease;
-	-moz-transition: all 400ms ease;
-	-ms-transition: all 400ms ease;
-	-o-transition: all 400ms ease;
-	transition: all 400ms ease;
-}
-.trans_500
-{
-	-webkit-transition: all 500ms ease;
-	-moz-transition: all 500ms ease;
-	-ms-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-}
+// .trans_300
+// {
+// 	-webkit-transition: all 300ms ease;
+// 	-moz-transition: all 300ms ease;
+// 	-ms-transition: all 300ms ease;
+// 	-o-transition: all 300ms ease;
+// 	transition: all 300ms ease;
+// }
+// .trans_400
+// {
+// 	-webkit-transition: all 400ms ease;
+// 	-moz-transition: all 400ms ease;
+// 	-ms-transition: all 400ms ease;
+// 	-o-transition: all 400ms ease;
+// 	transition: all 400ms ease;
+// }
+// .trans_500
+// {
+// 	-webkit-transition: all 500ms ease;
+// 	-moz-transition: all 500ms ease;
+// 	-ms-transition: all 500ms ease;
+// 	-o-transition: all 500ms ease;
+// 	transition: all 500ms ease;
+// }
 .fill_height
 {
 	height: 100%;
@@ -818,28 +818,28 @@ section
 3.6 Logo
 *********************************/
 
-.logo_container
-{
-	position: absolute;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-moz-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	-o-transform: translateY(-50%);
-	transform: translateY(-50%);
-	left: 15px;
-}
-.logo_container a
-{
-	font-size: 24px;
-	color: #1e1e27;
-	font-weight: 700;
-	text-transform: uppercase;
-}
-.logo_container a span
-{
-	color: #fe4c50;
-}
+// .logo_container
+// {
+// 	position: absolute;
+// 	top: 50%;
+// 	-webkit-transform: translateY(-50%);
+// 	-moz-transform: translateY(-50%);
+// 	-ms-transform: translateY(-50%);
+// 	-o-transform: translateY(-50%);
+// 	transform: translateY(-50%);
+// 	left: 15px;
+// }
+// .logo_container a
+// {
+// 	font-size: 24px;
+// 	color: #1e1e27;
+// 	font-weight: 700;
+// 	text-transform: uppercase;
+// }
+// .logo_container a span
+// {
+// 	color: #fe4c50;
+// }
 
 /*********************************
 3.7 Main Slider
@@ -1026,213 +1026,213 @@ section
 5.2 New Arrivals Products Grid
 *********************************/
 
-.product-grid
-{
-	width: 100%;
-	margin-top: 57px;
-}
-.product-item
-{
-	width: 20%;
-	height: 380px;
-	cursor: pointer;
-}
-.product-item::after
-{
-	display: block;
-	position: absolute;
-	top: 0;
-	left: -1px;
-	width: calc(100% + 1px);
-	height: 100%;
-	pointer-events: none;
-	content: '';
-	border: solid 2px rgba(235,235,235,0);
-	border-radius: 3px;
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-.product-item:hover::after
-{
-	box-shadow: 0 25px 29px rgba(63, 78, 100, 0.15);
-	border: solid 2px rgba(235,235,235,1);
-}
-.product
-{
-	width: 100%;
-	height: 340px;
-	border-right: solid 1px #e9e9e9;
-}
-.product_image
-{
-	width: 100%;
-}
-.product_image img
-{
-	width: 100%;
-}
-.product_info
-{
-	text-align: center;
-	padding-left: 10px;
-	padding-right: 10px;
-}
-.product_name
-{
-	margin-top: 27px;
-}
-.product_name a
-{
-	color: #1e1e27;
-	line-height: 20px;
-}
-.product_name:hover a
-{
-	color: #b5aec4;
-}
-.discount .product_info .product_price
-{
-	font-size: 14px;
-}
-.product_price
-{
-	font-size: 16px;
-	color: #fe4c50;
-	font-weight: 600;
-}
-.product_price span
-{
-	font-size: 12px;
-	margin-left: 10px;
-	color: #b5aec4;
-	text-decoration: line-through;
-}
-.product_bubble
-{
-	position: absolute;
-	top: 15px;
-	width: 50px;
-	height: 22px;
-	border-radius: 3px;
-	text-transform: uppercase;
-}
-.product_bubble span
-{
-	font-size: 12px;
-	font-weight: 600;
-	color: #FFFFFF;
-}
-.product_bubble_right::after
-{
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: 6px;
-	right: auto;
-	top: auto;
-	bottom: -6px;
-	border: 6px solid;
-}
-.product_bubble_left::after
-{
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: auto;
-	right: 6px;
-	bottom: -6px;
-	border: 6px solid;
-}
-.product_bubble_red::after
-{
-	border-color: transparent transparent transparent #fe4c50;
-}
-.product_bubble_left::after
-{
-	border-color: #51a042 #51a042 transparent transparent;
-}
-.product_bubble_red
-{
-	background: #fe4c50;
-}
-.product_bubble_green
-{
-	background: #51a042;
-}
-.product_bubble_left
-{
-	left: 15px;
-}
-.product_bubble_right
-{
-	right: 15px;
-}
-.add_to_cart_button
-{
-	width: 100%;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-.add_to_cart_button a
-{
-	font-size: 12px;
-	font-weight: 600;
-}
-.product-item:hover .add_to_cart_button
-{
-	visibility: visible;
-	opacity: 1;
-}
-.favorite
-{
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	color: #b9b4c7;
-	width: 17px;
-	height: 17px;
-	visibility: hidden;
-	opacity: 0;
-}
-.favorite_left
-{
-	left: 15px;
-}
-.favorite.active
-{
-	visibility: visible;
-	opacity: 1;
-}
-.product-item:hover .favorite
-{
-	visibility: visible;
-	opacity: 1;
-}
-.favorite.active::after
-{
-	font-family: 'FontAwesome';
-	content:'\f004';
-	color: #fe4c50;
-}
-.favorite::after
-{
-	font-family: 'FontAwesome';
-	content:'\f08a';
-}
-.favorite:hover::after
-{
-	color: #fe4c50;
-}
+// .product-grid
+// {
+// 	width: 100%;
+// 	margin-top: 57px;
+// }
+// .product-item
+// {
+// 	width: 20%;
+// 	height: 380px;
+// 	cursor: pointer;
+// }
+// .product-item::after
+// {
+// 	display: block;
+// 	position: absolute;
+// 	top: 0;
+// 	left: -1px;
+// 	width: calc(100% + 1px);
+// 	height: 100%;
+// 	pointer-events: none;
+// 	content: '';
+// 	border: solid 2px rgba(235,235,235,0);
+// 	border-radius: 3px;
+// 	-webkit-transition: all 0.3s ease;
+// 	-moz-transition: all 0.3s ease;
+// 	-ms-transition: all 0.3s ease;
+// 	-o-transition: all 0.3s ease;
+// 	transition: all 0.3s ease;
+// }
+// .product-item:hover::after
+// {
+// 	box-shadow: 0 25px 29px rgba(63, 78, 100, 0.15);
+// 	border: solid 2px rgba(235,235,235,1);
+// }
+// .product
+// {
+// 	width: 100%;
+// 	height: 340px;
+// 	border-right: solid 1px #e9e9e9;
+// }
+// .product_image
+// {
+// 	width: 100%;
+// }
+// .product_image img
+// {
+// 	width: 100%;
+// }
+// .product_info
+// {
+// 	text-align: center;
+// 	padding-left: 10px;
+// 	padding-right: 10px;
+// }
+// .product_name
+// {
+// 	margin-top: 27px;
+// }
+// .product_name a
+// {
+// 	color: #1e1e27;
+// 	line-height: 20px;
+// }
+// .product_name:hover a
+// {
+// 	color: #b5aec4;
+// }
+// .discount .product_info .product_price
+// {
+// 	font-size: 14px;
+// }
+// .product_price
+// {
+// 	font-size: 16px;
+// 	color: #fe4c50;
+// 	font-weight: 600;
+// }
+// .product_price span
+// {
+// 	font-size: 12px;
+// 	margin-left: 10px;
+// 	color: #b5aec4;
+// 	text-decoration: line-through;
+// }
+// .product_bubble
+// {
+// 	position: absolute;
+// 	top: 15px;
+// 	width: 50px;
+// 	height: 22px;
+// 	border-radius: 3px;
+// 	text-transform: uppercase;
+// }
+// .product_bubble span
+// {
+// 	font-size: 12px;
+// 	font-weight: 600;
+// 	color: #FFFFFF;
+// }
+// .product_bubble_right::after
+// {
+// 	content: ' ';
+// 	position: absolute;
+// 	width: 0;
+// 	height: 0;
+// 	left: 6px;
+// 	right: auto;
+// 	top: auto;
+// 	bottom: -6px;
+// 	border: 6px solid;
+// }
+// .product_bubble_left::after
+// {
+// 	content: ' ';
+// 	position: absolute;
+// 	width: 0;
+// 	height: 0;
+// 	left: auto;
+// 	right: 6px;
+// 	bottom: -6px;
+// 	border: 6px solid;
+// }
+// .product_bubble_red::after
+// {
+// 	border-color: transparent transparent transparent #fe4c50;
+// }
+// .product_bubble_left::after
+// {
+// 	border-color: #51a042 #51a042 transparent transparent;
+// }
+// .product_bubble_red
+// {
+// 	background: #fe4c50;
+// }
+// .product_bubble_green
+// {
+// 	background: #51a042;
+// }
+// .product_bubble_left
+// {
+// 	left: 15px;
+// }
+// .product_bubble_right
+// {
+// 	right: 15px;
+// }
+// .add_to_cart_button
+// {
+// 	width: 100%;
+// 	visibility: hidden;
+// 	opacity: 0;
+// 	-webkit-transition: all 0.3s ease;
+// 	-moz-transition: all 0.3s ease;
+// 	-ms-transition: all 0.3s ease;
+// 	-o-transition: all 0.3s ease;
+// 	transition: all 0.3s ease;
+// }
+// .add_to_cart_button a
+// {
+// 	font-size: 12px;
+// 	font-weight: 600;
+// }
+// .product-item:hover .add_to_cart_button
+// {
+// 	visibility: visible;
+// 	opacity: 1;
+// }
+// .favorite
+// {
+// 	position: absolute;
+// 	top: 15px;
+// 	right: 15px;
+// 	color: #b9b4c7;
+// 	width: 17px;
+// 	height: 17px;
+// 	visibility: hidden;
+// 	opacity: 0;
+// }
+// .favorite_left
+// {
+// 	left: 15px;
+// }
+// .favorite.active
+// {
+// 	visibility: visible;
+// 	opacity: 1;
+// }
+// .product-item:hover .favorite
+// {
+// 	visibility: visible;
+// 	opacity: 1;
+// }
+// .favorite.active::after
+// {
+// 	font-family: 'FontAwesome';
+// 	content:'\f004';
+// 	color: #fe4c50;
+// }
+// .favorite::after
+// {
+// 	font-family: 'FontAwesome';
+// 	content:'\f08a';
+// }
+// .favorite:hover::after
+// {
+// 	color: #fe4c50;
+// }
 
 /*********************************
 6. Deal of the week
