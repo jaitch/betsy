@@ -36,9 +36,9 @@ class ActiveSupport::TestCase
     info: {
     email: merchant.email,
     nickname: merchant.username
-  }
-}
-end
+    }}
+  end
+
 
 def perform_login(merchant = nil)
   merchant ||= Merchant.first

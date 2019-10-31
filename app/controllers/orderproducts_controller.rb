@@ -4,13 +4,13 @@ class OrderproductsController < ApplicationController
   # def index
   #   @orderproducts = Orderproduct.all
   # end
-
+  
   # def show ; end
-
+  
   def new
     @orderproduct = Orderproduct.new
   end
-
+  
   def create
     # checks to see if product is in stock
     @product = Product.find_by(id: params[:product_id])
@@ -24,6 +24,7 @@ class OrderproductsController < ApplicationController
     # end
     if @product.stock < 1
       flash[:danger] = "Out of stock. Sorry!"
+
       redirect_to products_path
       return
     end
@@ -60,31 +61,31 @@ class OrderproductsController < ApplicationController
       return
     end
   end
-
+  
   def edit ; end
-
+  
   def update
     @orderproduct.update(orderproduct_params)
     redirect_to order_path(@orderproduct.order) # so that update is available again (goes from grey to black)
     return
   end
-
+  
   def destroy
     if @orderproduct.destroy
       flash[:success] = "Item successfully deleted!"
       redirect_to order_path(@orderproduct.order)
     end
   end
-
+  
   private
   def orderproduct_params
     return params.require(:orderproduct).permit(:order_id, :product_id, :quantity)
   end
-
+  
   def find_orderproduct
     @orderproduct = Orderproduct.find_by(id: params[:id])
   end
-
+  
   def if_orderproduct_missing
     if @orderproduct.nil?
       flash[:warning] = "Orderproduct with id #{params[:id]} was not found!"

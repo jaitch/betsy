@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   
   def index 
-    @products = Product.all
+    @products = Product.where(retire: false)
   end
   
   def show 
