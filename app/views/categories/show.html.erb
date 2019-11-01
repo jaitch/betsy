@@ -1,5 +1,8 @@
 <h1><%= @category.name %></h1>
 <% @category.products.each do |product| %>
+<%= link_to product_path(product.id) do %>
+        <img class="product-image", style="width:200px;height:200px", src="<%= product.photo%>">
+        <%end%>
   <p>Name: <%= link_to product.name, product_path(product)%> </p>
   <p>Price: $<%= '%.2f' % product.price%></p>
   <p>Stock: <%= product.stock%></p>
