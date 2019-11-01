@@ -49,11 +49,13 @@
   <% end %>
   </div>
 
+  <% if @merchant.products.length == 0 %>
+    <br>
+    <p align="center">You do not have any products.</p>
+  <% end %>
+
   <div class="row" align="center">
-    <% if @merchant.products == nil %>
-      <p align="center">You do not have any prodcuts.</p>
-    <% end %>
-    
+
     <% @merchant.products.each do |product| %>
     <div class="product-card col-lg-3 col-md-4 col-sm-6 col-12">
       <div>
