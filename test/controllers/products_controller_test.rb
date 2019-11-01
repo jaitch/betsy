@@ -119,7 +119,8 @@ describe ProductsController do
         start_count = Product.all.count
         perform_login()
         
-        product_hash = product: {
+        product_hash = {
+          product: {
             name: "Markle Sparkle Princess Dress",
             price: 50.00,
             stock: 5,
