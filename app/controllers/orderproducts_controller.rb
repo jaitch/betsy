@@ -14,17 +14,16 @@ class OrderproductsController < ApplicationController
   def create
     # checks to see if product is in stock
     @product = Product.find_by(id: params[:product_id])
-
-    # I think this is a duplicate of the code in products_controller line 11 -Julia K
-    #
-    # if @product == nil
-    #   flash.now[:warning] = "Product with id #{params[:id]} was not found!"
-    #   redirect_to products_path
-    #   return
-    # end
+    
+    if @product == nil
+      flash.now[:warning] = "Product with id #{params[:id]} was not found!"
+      redirect_to products_path
+      return
+    end
+    
     if @product.stock < 1
       flash[:danger] = "Out of stock. Sorry!"
-
+      
       redirect_to products_path
       return
     end
