@@ -64,11 +64,11 @@
                   <%= categories_dropdown %>
                   <%= merchants_dropdown %>
                 <% if session[:order_id] != nil %>
-                <li class="nav-item">
-                  <% @order = Order.find(session[:order_id]) %>
-                  <a class="btn btn-primary" href="/orders/<%=@order.id%>"> Cart <span class="badge badge-pill badge-dark"><%=@order.orderproducts.length%></span></a>
+                  <li class="nav-item">
+                    <% @order = Order.find(session[:order_id]) %>
+                    <a class="btn btn-primary" href="/orders/<%=@order.id%>"> Cart <span class="badge badge-pill badge-dark"><%=@order.orderproducts.length%></span></a>
                   <% end %>
-                </li>
+                  </li>
             </ul>
         </div>
     </div>
