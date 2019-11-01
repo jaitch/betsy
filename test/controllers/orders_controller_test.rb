@@ -2,6 +2,7 @@ require "test_helper"
 require 'pry'
 
 describe OrdersController do
+# no index view page so deleting tests for index
   describe 'show' do
     it 'responds with success when showing a valid order (cart)' do
       valid_order = Order.first
@@ -13,14 +14,18 @@ describe OrdersController do
       must_redirect_to products_path
     end
   end
-  
+
   describe 'new/create action' do
+    it 'can create a new order' do
+      get new_order_path
+      must_respond_with :success
+    end
     it 'creates a new order when a guest adds a product to the cart' do
       product_id = products(:clown).id
       expect { post product_orderproducts_path(product_id) }.must_differ 'Order.count', 1
     end
   end
-  
+
   describe 'update action' do
     it 'enables buyer to check out' do
       product_id = products(:clown).id
@@ -39,9 +44,24 @@ describe OrdersController do
       status: "paid"}}
       expect{ patch order_path(order.id), params: checkout_hash }.wont_change Order.count
       must_redirect_to confirmation_path
-      
     end
-    
+    it 'responds appropriately if order placement unsuccessful' do
+      product_id = products(:clown).id
+      post product_orderproducts_path(product_id)
+      order = Order.last
+      checkout_hash = {
+        order: {
+        email: "tummy@petsy.com",
+        mailing_address: "123 Pine St.",
+        zip: 12345,
+        name_on_cc: "Tummy B. Button",
+        cc_exp: "11/9/19",
+        cc_cvc: 345,
+        status: "paid"}}
+      patch order_path(order.id), params: checkout_hash
+      expect(flash[:danger]).must_include "Order failed"
+    end
+
     it 'decreases quantity purchased from product stock' do
       valid_product = products(:clown)
       cur_id = valid_product.id
