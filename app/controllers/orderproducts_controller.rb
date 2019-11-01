@@ -1,11 +1,7 @@
 class OrderproductsController < ApplicationController
   before_action :find_orderproduct, only: [:show, :edit, :update, :destroy]
   before_action :if_orderproduct_missing, only: [:edit, :update, :destroy]
-  # def index
-  #   @orderproducts = Orderproduct.all
-  # end
-
-  # def show ; end
+  # index and show ununsed so deleted
 
   def new
     @orderproduct = Orderproduct.new
@@ -14,10 +10,8 @@ class OrderproductsController < ApplicationController
   def create
     # checks to see if product is in stock
     @product = Product.find_by(id: params[:product_id])
-    
     if @product.stock < 1
       flash[:danger] = "Out of stock. Sorry!"
-      
       redirect_to products_path
       return
     end
