@@ -1,7 +1,7 @@
 class HomepagesController < ApplicationController
   
   def index
-    @products = Product.all 
+    # @products = Product.all 
     @merchants = Merchant.all
     @categories = Category.all
   end
