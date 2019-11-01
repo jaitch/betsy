@@ -3,8 +3,7 @@ class Product < ApplicationRecord
   has_many :reviews
   has_many :orderproducts
   has_and_belongs_to_many :categories
-  has_many :orders, through: :orderproducts
-  
+  has_many :orders, through: :orderproducts, dependent: :destroy
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }
@@ -17,7 +16,7 @@ class Product < ApplicationRecord
     end
   end
 
-  def self.name_asc
+  def self.sort_ascending
     return Product.order(name: :asc)
   end
 
