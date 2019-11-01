@@ -17,11 +17,6 @@ describe OrderproductsController do
       must_redirect_to products_path
     end
     
-    it 'does not create an orderproduct if the product id is invalid' do
-      expect{ post product_orderproducts_path(-42)}.wont_change 'Orderproduct.count'
-      must_redirect_to products_path
-    end
-    
     it 'uses the session order id for the orderproduct order id if the is in an existing order / can add a product to an order that does not yet contain it, and creates a new orderproduct in the process' do
       product_id = products(:clown).id
       post product_orderproducts_path(product_id)
