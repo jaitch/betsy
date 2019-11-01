@@ -136,6 +136,33 @@ describe ProductsController do
         # Assert
         expect(Product.all.count).must_equal (start_count + 1)
         must_respond_with :redirect
+        expect(flash[:success]).wont_be_nil
+      end
+
+      it "cannot create an invalid product" do 
+        # Arrange
+        start_count = Product.all.count
+        perform_login()
+        
+        invalid_hash = {
+          product: {
+            name: nil,
+            price: -10.00,
+            stock: nil,
+            description: "it's a black dress for your fancy pet",
+            photo: nil,
+            retire: false,
+          }
+        }
+        
+          # Act
+          post products_path, params: invalid_hash
+
+          # Assert
+          expect(Product.all.count).must_equal (start_count)
+          must_respond_with :success
+          expect(flash[:danger]).wont_be_nil
+
       end
     end
   end 
@@ -152,21 +179,38 @@ describe ProductsController do
         # Assert
         must_respond_with :redirect
         must_redirect_to root_path
+        expect(flash[:warning]).wont_be_nil
       end
     end 
     
     describe "while logged in" do 
-      it "can get the edit a product page" do 
+      before do 
         #Arrange 
         @magician = products(:magician)
         perform_login(@magician.merchant)
-        
-        # Act
-        get edit_product_path(@magician)
-        
-        # Assert
-        must_respond_with :success
       end 
+        it "can get the edit a product page" do 
+          # Act
+          get edit_product_path(@magician)
+        
+          # Assert
+          must_respond_with :success
+          expect(flash[:success]).wont_be_nil
+        end
+      
+        it "cannot edit an invalid product" do 
+          # Act
+          get edit_product_path(-2)
+
+          # Assert
+          must_respond_with :redirect 
+        end 
+
+        it "cannot edit another merchant's product" do 
+          # Act
+
+          # Arrange
+        end
     end 
   end
   
@@ -187,10 +231,12 @@ describe ProductsController do
     
     
     describe "while logged in" do 
-      it "can update a product" do 
-        # Arrange
+      before do 
         @magician = products(:magician)
         perform_login
+      end
+      it "can update a product" do 
+        # Arrange
         update_hash = {
           product: {
             name: "Houdini",
@@ -206,24 +252,32 @@ describe ProductsController do
         
         # Assert
         @magician.name.must_equal "Houdini"
-        @magician.price .must_equal 150.99
+        @magician.price.must_equal 150.99
         @magician.stock.must_equal 12
         @magician.retire.must_equal true
       end 
       
       it "cannot update another merchant's product" do 
         # Arrange
-        @magician = products(:magician)
         @batman = products(:batman)
-        perform_login(@magician.merchant)
         
         #Act
         get edit_product_path(@batman.merchant)
         
         #Assert
         must_respond_with :redirect
+        expect(flash[:warning]).wont_be_nil
         must_redirect_to root_path
       end
+
+      it "cannot edit an invalid product" do 
+        # Act
+        get edit_product_path(-2)
+
+        # Assert
+        must_respond_with :redirect 
+        must_redirect_to root_path
+      end 
     end 
   end 
 end 
