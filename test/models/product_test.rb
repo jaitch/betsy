@@ -50,4 +50,22 @@ describe Product do
       wonder_woman.valid?.must_equal false
     end
   end
+
+  describe "custom methods" do 
+    it "calculates average rating" do 
+      # Arrange
+      # mariya = Merchant.create(username: "mb", email: "m@gmail")
+      # cat_mouse = Product.create(name: "mouse", stock: 10, price: 5.98, photo: nil, retire: false, description: "your cat will like this", merchant_id: mariya.id)
+      clown = products(:clown)
+      review1 = Review.create(product_id: clown.id, rating: 4)
+      review2 = Review.create(product_id: clown.id, rating: 5)
+
+      # Act
+      avg = clown.average_rating
+      
+      # Assert
+      expect(avg).must_equal 4.5
+    end
+
+  end
 end

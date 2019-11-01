@@ -50,7 +50,7 @@ describe ProductsController do
       
         # Assert
         must_respond_with :redirect
-        must_redirect_to root_path
+        must_redirect_to products_path
       end
     end 
 
@@ -71,7 +71,7 @@ describe ProductsController do
 
         # Assert
         must_respond_with :redirect
-        must_redirect_to root_path
+        must_redirect_to products_path
       end
     end
   end #describe show block
