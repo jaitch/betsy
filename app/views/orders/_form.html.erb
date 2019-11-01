@@ -38,5 +38,5 @@
   <br>
   <%= f.hidden_field :status, :value => "paid" %>
 
-  <%= f.submit "Checkout" %>
+  <a class="col-auto btn btn-secondary btn-lg" href="/orders/<%=@order.id %>/edit"> <%=verb_name%> </a>
 <% end %>

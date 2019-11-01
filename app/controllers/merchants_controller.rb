@@ -12,7 +12,7 @@ class MerchantsController < ApplicationController
   
   def create
     if session[:merchant_id]
-      flash[:error] = "A merchant is already logged in."
+      flash[:warning] = "A merchant is already logged in."
       redirect_back(fallback_location: root_path)
     else
       auth_hash = request.env["omniauth.auth"]
@@ -21,7 +21,6 @@ class MerchantsController < ApplicationController
       if merchant
         flash[:success] = "Logged in as returning merchant #{merchant.username}"
       else
-        gyjin/merch-fulfillment
         merchant = Merchant.build_from_github(auth_hash)
         if merchant.save
           flash[:success] = "Logged in as new merchant #{merchant.username}"
@@ -38,7 +37,7 @@ class MerchantsController < ApplicationController
   
   def destroy
     if session[:merchant_id] == nil
-      flash[:error] = "You cannot log out because you are not logged in."
+      flash[:warning] = "You cannot log out because you are not logged in."
     else
       session[:merchant_id] = nil
       flash[:success] = "Successfully logged out!"
@@ -46,15 +45,6 @@ class MerchantsController < ApplicationController
     
     redirect_to root_path
   end
-  
-  # def fulfillment
-  #   if session[:merchant_id] == nil
-  #     flash[:error] = "You cannot see fulfillments because you are not logged in."
-  #   else
-  #     @ordered_products = @merchant.fulfillments
-  #     return @ordered_products
-  #   end
-  # end
   
   private
   

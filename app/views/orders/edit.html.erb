@@ -1,3 +1,4 @@
+<div class="container-fluid text-center text-md-left">
 <h3> Contents of Your Shopping Cart: </h3>
 <% orderproducts = Orderproduct.where(order_id: @order.id) %>
 <ol>
@@ -5,18 +6,8 @@
 <li> <%= link_to orderproduct.product.name, product_path(orderproduct.product)%>
 <br>
 Quantity:
-<select>
-  <% x = 1 %>
-    <% until x > orderproduct.product.stock %>
-      <% if x == orderproduct.quantity %>
-        <option value=x selected> <%=x%> </option>
-      <% else %>
-        <option value=x > <%=x%> </option>
-      <% end %>
-    <% x += 1 %>
-  <%end%>
-</select>
-<%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, data: {confirm: "Are you sure?"} %>
+  <%=orderproduct.quantity%>
+<%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, class: "btn btn-primary btn-sm", data: {confirm: "Are you sure?"} %>
 <br>
 </li>
 <% end %>
