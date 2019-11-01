@@ -12,7 +12,7 @@ class MerchantsController < ApplicationController
   
   def create
     if session[:merchant_id]
-      flash[:error] = "A merchant is already logged in."
+      flash[:warning] = "A merchant is already logged in."
       redirect_back(fallback_location: root_path)
     else
       auth_hash = request.env["omniauth.auth"]
@@ -37,7 +37,7 @@ class MerchantsController < ApplicationController
   
   def destroy
     if session[:merchant_id] == nil
-      flash[:error] = "You cannot log out because you are not logged in."
+      flash[:warning] = "You cannot log out because you are not logged in."
     else
       session[:merchant_id] = nil
       flash[:success] = "Successfully logged out!"

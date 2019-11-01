@@ -62,7 +62,7 @@ describe MerchantsController do
         must_redirect_to root_path
         _(Merchant.count).must_equal start_count
         _(session[:merchant_id]).must_equal nil
-        _(flash[:error]).wont_be_nil
+        _(flash[:warning]).wont_be_nil
       end
     end
     
@@ -72,7 +72,7 @@ describe MerchantsController do
         delete logout_path
         _(Merchant.count).must_equal start_count
         _(session[:merchant_id]).must_equal nil
-        _(flash[:error]).wont_be_nil
+        _(flash[:warning]).wont_be_nil
       end
     end
     
@@ -119,7 +119,7 @@ describe MerchantsController do
         must_respond_with :redirect
         _(Merchant.count).must_equal start_count
         _(session[:merchant_id]).must_equal merchant.id
-        _(flash[:error]).wont_be_nil
+        _(flash[:warning]).wont_be_nil
       end
       
     end
