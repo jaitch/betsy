@@ -256,19 +256,6 @@ describe ProductsController do
         @magician.stock.must_equal 12
         @magician.retire.must_equal true
       end 
-      
-      # it "cannot update another merchant's product" do 
-      #   # Arrange
-      #   @batman = products(:batman)
-        
-      #   #Act
-      #   get edit_product_path(@batman.merchant)
-        
-      #   #Assert
-      #   must_respond_with :redirect
-      #   expect(flash[:warning]).wont_be_nil
-      #   must_redirect_to root_path
-      # end
 
       it "cannot edit an invalid product" do 
         # Act
