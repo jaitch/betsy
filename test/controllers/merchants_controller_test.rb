@@ -75,14 +75,7 @@ describe MerchantsController do
         _(flash[:warning]).wont_be_nil
       end
     end
-    
-    describe "fulfillment" do
-      # the way our website is organized, this would technically be a html view test, which we haven't learned about yet
-      # the view page looks differently depending on whether a user is logged in or not, and calls the "fulfillment" method only if the user is logged in
-      # the fulfillment method's path is the show path 
-    end
   end
-  
   
   describe "as a logged-in merchant" do
     describe "index" do

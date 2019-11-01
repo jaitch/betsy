@@ -20,7 +20,6 @@
     <% end %>
   </div>
 
-
   <% @product.reviews.sort_descending.each do |review|%>
     <div class="row product-review-row">
       <div class="col-3 product-review-rating"> <%= review.rating%> / 5 </div>

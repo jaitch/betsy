@@ -39,7 +39,6 @@ class ActiveSupport::TestCase
     }}
   end
   
-  
   def perform_login(merchant = nil)
     merchant ||= Merchant.first
     
