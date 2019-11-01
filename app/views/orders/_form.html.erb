@@ -1,4 +1,4 @@
-<h3> <%= verb_name %> Your Order: </h3>
+<h3> <%= verb_name %> Your Order </h3>
 
 <% if @order.errors.any? %>
   <ul class="errors">
@@ -10,7 +10,7 @@
   </ul>
 <% end %>
 
-<h4> Purchaser Information: </h4>
+<h4> Purchaser Information </h4>
 <%= form_with model: @order do |f| %>
   <%= f.label 'Name: '%>
   <%= f.text_field :name %>
