@@ -9,9 +9,18 @@ describe CategoriesController do
 
         # Act
         get category_path(puppy.id)
+        
         # Assert
-
         must_respond_with :success
+      end
+
+      it "redirects with invalid category" do 
+        # Act
+        get category_path(-20)
+
+        # Assert
+        must_respond_with :redirect
+        must_redirect_to root_path
       end
     end
 
@@ -70,23 +79,43 @@ describe CategoriesController do
     end
 
     describe "while logged in" do 
-      it "can create a product when logged in" do 
+      before do 
         # Arrange
-        start_count = Category.all.count
+        @start_count = Category.all.count
         perform_login()
-        category_hash = {
-          category: {
-            name: "elf"
+      end
+        it "can create a product when logged in" do 
+          # Arrange
+          category_hash = {
+            category: {
+              name: "elf"
+            }
           }
-        }
-        # Act
-        post categories_path, params: category_hash
+        
+          # Act
+          post categories_path, params: category_hash
 
-        # Assert
-        expect(Category.all.count).must_equal (start_count + 1)
-        must_redirect_to root_path
-        must_respond_with :redirect
-        must_redirect_to root_path
+          # Assert
+          expect(Category.all.count).must_equal (@start_count + 1)
+          must_redirect_to root_path
+          must_respond_with :redirect
+          must_redirect_to root_path
+        end
+
+        it "cannot create an invalid category" do 
+          # Arrange
+          invalid_category = {
+            category: {
+              name: nil
+            }
+          }
+
+          # Act
+          post categories_path, params: invalid_category
+
+          # Assert
+          expect(Category.all.count).must_equal @start_count
+          expect(flash[:warning]).wont_be_nil 
       end
     end 
   end 

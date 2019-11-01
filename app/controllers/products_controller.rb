@@ -73,19 +73,6 @@ class ProductsController < ApplicationController
     end
   end 
   
-  def destroy 
-    product_id = params[:id]
-    @product = Product.find_by(id: product_id)
-    
-    if @product.nil?
-      redirect_to root_path
-      return
-    elsif @product.destroy 
-      redirect_to root_path
-      return
-    end
-  end 
-  
   private 
   
   def product_params
