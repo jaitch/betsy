@@ -16,4 +16,9 @@ class Product < ApplicationRecord
       (self.reviews.map{ |review| review.rating }.sum / self.reviews.count.to_f).round(1)
     end
   end
+
+  def self.name_asc
+    return Product.order(name: :asc)
+  end
+
 end
