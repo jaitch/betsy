@@ -18,3 +18,7 @@ five:
   rating: 5
   product_id: clown.id
   text: "OMG AMAZING I LOVE IT SO MUCH"
+six:
+  rating: 4
+  product_id: clown.id
+  text: "my dog loved it!"

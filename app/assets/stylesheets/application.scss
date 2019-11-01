@@ -28,10 +28,9 @@
 [Table of Contents]
 
 1. Fonts
-2. Body and some general stuff
-3. Navigation
+2. Navigation
+3. Body and some general stuff
 4. Footer
-
 
 
 
@@ -44,9 +43,20 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900');
 
 /*********************************
-2. Body and some general stuff
+2. Navigation
 *********************************/
 
+
+.navbar-brand
+    {
+			vertical-align: bottom;
+			font-size: 3em;
+		}
+		
+
+/*********************************
+3. Body and some general stuff
+*********************************/
 
 
 body
@@ -223,38 +233,6 @@ section
 {
 	float: right;
 }
-// .trans_200
-// {
-// 	-webkit-transition: all 200ms ease;
-// 	-moz-transition: all 200ms ease;
-// 	-ms-transition: all 200ms ease;
-// 	-o-transition: all 200ms ease;
-// 	transition: all 200ms ease;
-// }
-// .trans_300
-// {
-// 	-webkit-transition: all 300ms ease;
-// 	-moz-transition: all 300ms ease;
-// 	-ms-transition: all 300ms ease;
-// 	-o-transition: all 300ms ease;
-// 	transition: all 300ms ease;
-// }
-// .trans_400
-// {
-// 	-webkit-transition: all 400ms ease;
-// 	-moz-transition: all 400ms ease;
-// 	-ms-transition: all 400ms ease;
-// 	-o-transition: all 400ms ease;
-// 	transition: all 400ms ease;
-// }
-// .trans_500
-// {
-// 	-webkit-transition: all 500ms ease;
-// 	-moz-transition: all 500ms ease;
-// 	-ms-transition: all 500ms ease;
-// 	-o-transition: all 500ms ease;
-// 	transition: all 500ms ease;
-// }
 .fill_height
 {
 	height: 100%;
@@ -266,35 +244,8 @@ section
 }
 
 /*********************************
-3. Home
+3. Body and some general stuff
 *********************************/
-
-// .header
-// {
-// 	position: fixed;
-// 	top: 0;
-// 	left: 0;
-// 	width: 100%;
-// 	background: #FFFFFF;
-// 	z-index: 10;
-// }
-// .top_nav
-// {
-// 	width: 100%;
-// 	height: 50px;
-// 	background: #1e1e27;
-// }
-// .top_nav_left
-// {
-// 	height: 50px;
-// 	line-height: 50px;
-// 	font-size: 13px;
-// 	color: #b5aec4;
-// 	text-transform: uppercase;
-// }
-// /*********************************
-// 4. Footer
-// *********************************/
 
 footer {
   padding-top: 3rem;
