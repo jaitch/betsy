@@ -1,4 +1,4 @@
-<h3> <%= verb_name %> Your Order! </h3>
+<h3> <%= verb_name %> Your Order: </h3>
 
 <% if @order.errors.any? %>
   <ul class="errors">
@@ -38,5 +38,7 @@
   <br>
   <%= f.hidden_field :status, :value => "paid" %>
 
-  <a class="col-auto btn btn-secondary btn-lg" href="/orders/<%=@order.id %>/edit"> <%=verb_name%> </a>
+  <div>
+    <%= f.submit "Complete Order", class: 'btn btn-success' %>
+  </div>
 <% end %>
