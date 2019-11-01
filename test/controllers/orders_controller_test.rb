@@ -13,14 +13,14 @@ describe OrdersController do
       must_redirect_to products_path
     end
   end
-
+  
   describe 'new/create action' do
     it 'creates a new order when a guest adds a product to the cart' do
       product_id = products(:clown).id
       expect { post product_orderproducts_path(product_id) }.must_differ 'Order.count', 1
     end
   end
-
+  
   describe 'update action' do
     it 'enables buyer to check out' do
       product_id = products(:clown).id
@@ -39,9 +39,9 @@ describe OrdersController do
       status: "paid"}}
       expect{ patch order_path(order.id), params: checkout_hash }.wont_change Order.count
       must_redirect_to confirmation_path
-
+      
     end
-
+    
     it 'decreases quantity purchased from product stock' do
       valid_product = products(:clown)
       cur_id = valid_product.id

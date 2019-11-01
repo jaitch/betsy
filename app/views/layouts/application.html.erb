@@ -21,9 +21,8 @@
   <body>
   <header>
 
-
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <h3><a class="navbar-brand"> <%= link_to "Petsy", root_path %></a></h1>
+    <a class="navbar-brand" href="/">Petsy</a>
     <div class="container">
         <h1 class="pb-2 ml-md-0 ml-sm-3 ml-0 mr-3"><a href="#"><i class="fa fa-envelope-o fa-lg mt-3" aria-hidden="true"></i></a></h1>
         <button class="navbar-toggler my-2" type="button" data-toggle="collapse" data-target="#navbarCollapse">
@@ -66,7 +65,8 @@
                   <%= merchants_dropdown %>
                 <% if session[:order_id] != nil %>
                 <li class="nav-item">
-                  <%= link_to "Cart", order_path(session[:order_id]), class: "nav-link" %>
+                  <% @order = Order.find(session[:order_id]) %>
+                  <a class="btn btn-primary" href="/orders/<%=@order.id%>"> Cart <span class="badge badge-pill badge-dark"><%=@order.orderproducts.length%></span></a>
                   <% end %>
                 </li>
             </ul>
@@ -81,9 +81,12 @@
       <div class="alert alert-<%= message_type %>"><%= message %></div>
     <% end %>
   </section>
+<main>
 
 
 <%= yield %>
+
+</main>
 
   </body>
 </html>

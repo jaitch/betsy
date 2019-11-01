@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params.merge(merchant_id: session[:merchant_id])) # merge product params with session based ones
     if @product.save 
       flash[:success] = "Your product has been added."
-      redirect_to root_path
+      redirect_to merchant_path(session[:merchant_id])
       return
     else 
       flash.now[:danger] = "Your product could not be saved because #{@product.errors.full_messages}"
@@ -70,19 +70,6 @@ class ProductsController < ApplicationController
       flash[:warning] = "This product was not updated because #{@product.errors.messages}"
       redirect_to edit_product_path 
       return 
-    end
-  end 
-  
-  def destroy 
-    product_id = params[:id]
-    @product = Product.find_by(id: product_id)
-    
-    if @product.nil?
-      redirect_to root_path
-      return
-    elsif @product.destroy 
-      redirect_to root_path
-      return
     end
   end 
   

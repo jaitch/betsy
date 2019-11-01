@@ -1,6 +1,7 @@
+<div class="container-fluid text-center text-md-left">
 <% @order = Order.find_by(id: params[:id]) %>
 
-<h1> Thank you for your order! </h1>
+<h3> Thank you for your order! </h3>
 <br>
 
 <table class = "table">
@@ -22,6 +23,6 @@
   <% end %>
 </table>
 
-<h3> Order total: $<%= sprintf "%.2f", total %> </h3>
-<h3> Order placed: <%= readable_date(@order.created_at.to_s) %> </h3>
-<h3> Order status: <%= @order.status %>
+<h4> Order total: $<%= sprintf "%.2f", total %> </h4>
+<h4> Order placed: <%= readable_date(@order.updated_at.to_s) %> </h4>
+<h4> Order status: <%= @order.status %>

@@ -1,5 +1,92 @@
-<h1>Welcome to Petsy Betsy</h1>
 
-<h2>Buy Our Flash Sale Item!</h2>
-<%  feature = @products.sample %>
-<%= link_to feature.name, product_path(feature.id)%>
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Costume Drama</h1>
+      <p class="lead text-muted">Make an entrance. Command attention. Your pet will be the star of the show in one of our exclusive ensembles.</p>
+      <p>
+        <a href="/products" class="btn btn-primary my-2">All costumes</a>
+</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-12 shadow-sm">
+            <img class="card-img-top" src="<%=Product.find_by(id: 9).photo %>" alt="pug with wire-rim glasses and chunky scarf">
+            <div class="card-body">
+              <h5 class="card-title">Best Seller: Grandpaw</h5>
+              <p class="card-text">What dog wouldn't look adorable in a set of dog-friendly wire-rim glasses and a snuggly wool scarf? Our Grandpaw costume is a surefire crowd pleasure and your pup will love it too.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="/products/9" class="btn btn-primary">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card mb-6 shadow-sm">
+               <img class="card-img-top" src="<%= Product.find_by(id: 15).photo %>" alt="kitten wearing Princess Leia wig made of yarn">
+            <div class="card-body">
+              <h5 class="card-title">Cat Costumes</h5>
+              <p class="card-text">Our cat costumes are imbued with a proprietary blend of phermones that make even the finickiest kitty enjoy wearing them. </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+               <a href="/categories/1" class="btn btn-primary">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card mb-6 shadow-sm">
+              <img class="card-img-top" src="<%=Product.find_by(id: 2).photo %>" alt="Large yellow dog wearing lion's mane">
+            <div class="card-body">
+            <h5 class="card-title">Dog Costumes</h5>
+              <p class="card-text">Dogs always look great in costume. Choose from a wide selection of canine-friendly options that pups and people will both enjoy.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                   <a href="/categories/2" class="btn btn-primary">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card mb-6 shadow-sm">
+                 <img class="card-img-top" src="<%=Product.find_by(id: 12).photo %>" alt="Llama wearing rainbow wig, multi-color polka dot bowtie, and red-and-white striped leg warmers">
+            <div class="card-body">
+            <h5 class="card-title">Llama Costumes</h5>
+              <p class="card-text">Our extensive market research showed that llamas a highly underserved clothing market, so we are giving the people what they want: fabulous llama costumes!</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="/categories/3" class="btn btn-primary">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card mb-6 shadow-sm">
+                 <img class="card-img-top" src="<%=Product.find_by(id: 8).photo %>" alt="cat in a green hood with fangs at the top">
+            <div class="card-body">
+            <h5 class="card-title">Highly Rated: Chupacatbra</h5>
+              <p class="card-text">What do you get when you cross the goat-sucking Puerto Rican creature of myth with a cuddly costume? Our legendary chupacatbra!</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                 <a href="/products/8" class="btn btn-primary">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

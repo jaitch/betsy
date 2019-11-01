@@ -24,7 +24,14 @@
   <% @product.reviews.sort_descending.each do |review|%>
     <div class="row product-review-row">
       <div class="col-3 product-review-rating"> <%= review.rating%> / 5 </div>
-      <q class="col-9 product-review-quote"><%= review.text%></q>
+      <% if review.text == "" %>
+      <p>No review text provided</p> 
+      <% else %>
+      <q class="col-9 product-review-quote">
+      <%= review.text%>
+      </q>
+      <% end %>
+
     </div>
   <% end%>
 </div>

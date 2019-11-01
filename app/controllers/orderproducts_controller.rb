@@ -14,9 +14,10 @@ class OrderproductsController < ApplicationController
   def create
     # checks to see if product is in stock
     @product = Product.find_by(id: params[:product_id])
+    
     if @product.stock < 1
       flash[:danger] = "Out of stock. Sorry!"
-
+      
       redirect_to products_path
       return
     end

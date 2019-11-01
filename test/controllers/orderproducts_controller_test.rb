@@ -2,13 +2,13 @@ require "test_helper"
 
 describe OrderproductsController do
   # had written index and show tests, but Rails objected bc there aren't views for those
-
+  
   describe 'create' do
     it 'can create a new orderproduct with valid information' do
-        product_id = products(:clown).id
-        expect { post product_orderproducts_path(product_id) }.must_differ 'Orderproduct.count', 1
+      product_id = products(:clown).id
+      expect { post product_orderproducts_path(product_id) }.must_differ 'Orderproduct.count', 1
     end
-
+    
     it 'does not create an orderproduct if the product is out of stock' do
       product = products(:wizard)
       post product_orderproducts_path(product.id) # this takes the only one in stock
@@ -30,7 +30,7 @@ describe OrderproductsController do
       # there is another orderproduct within the order
       expect(order.orderproducts.count).must_equal num_ops + 1
     end
-
+    
     it 'does not let buyer add product to the cart if cart contains full stock of a product' do
       product = products(:magician)
       product.stock = 1
@@ -39,7 +39,7 @@ describe OrderproductsController do
       must_respond_with 302
       must_redirect_to products_path
     end
-
+    
     it 'can add product to cart that already contains that item if not yet maxed out, and increases quantity by one' do
       product_id = products(:batman).id
       post product_orderproducts_path(product_id)
@@ -50,7 +50,7 @@ describe OrderproductsController do
       expect(op.quantity).must_equal 2
     end
   end
-
+  
   describe 'update orderproduct quantity' do
     it 'can change the quantity of an orderproduct in an order and save it' do
       product = products(:clown)
@@ -68,7 +68,7 @@ describe OrderproductsController do
       expect(updated_op.quantity).must_equal 5
     end
   end
-
+  
   describe 'destroy' do
     it 'can delete an item from the cart' do
       product = products(:clown)
