@@ -29,10 +29,40 @@ describe Category do
   
   describe "validations" do 
     it "has a name" do 
+      # Arrange
+      puppy = categories(:puppy)
+
+      # Act
+      result = puppy.valid?
+
+      # Assert
+      expect(result).must_equal true
       
     end
-    
-    it "has a unique name" do 
+
+    it "is invalid without a name" do 
+      # Arrange
+      puppy = categories(:puppy)
+      puppy.name = nil
+
+      # Act
+      result = puppy.valid?
+
+      # Assert
+      expect(result).must_equal false 
+    end 
+
+    it "has a unique category name" do 
+      # Arrange
+      puppy = categories(:puppy)
+      cat = Category.create(name: "puppy")
+
+      # Act
+      result = cat.valid?
+
+      # Assert
+      expect(result).must_equal false
+
     end
   end
 end
