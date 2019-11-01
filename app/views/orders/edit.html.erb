@@ -6,17 +6,7 @@
 <li> <%= link_to orderproduct.product.name, product_path(orderproduct.product)%>
 <br>
 Quantity:
-<select>
-  <% x = 1 %>
-    <% until x > orderproduct.product.stock %>
-      <% if x == orderproduct.quantity %>
-        <option value=x selected> <%=x%> </option>
-      <% else %>
-        <option value=x > <%=x%> </option>
-      <% end %>
-    <% x += 1 %>
-  <%end%>
-</select>
+  <%=orderproduct.quantity%>
 <%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, data: {confirm: "Are you sure?"} %>
 <br>
 </li>
