@@ -1,6 +1,6 @@
 <h1><%= @category.name %></h1>
 <% @category.products.each do |product| %>
-  <p>Name: <%= product.name%></p>
+  <p>Name: <%= link_to product.name, product_path(product)%> </p>
   <p>Price: $<%= '%.2f' % product.price%></p>
   <p>Stock: <%= product.stock%></p>
   <p>Description: <%= product.description%></p>

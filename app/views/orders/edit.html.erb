@@ -7,7 +7,7 @@
 <br>
 Quantity:
   <%=orderproduct.quantity%>
-<%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, data: {confirm: "Are you sure?"} %>
+<%= button_to 'Delete Item', orderproduct_path(orderproduct.id), method: :delete, class: "btn btn-primary btn-sm", data: {confirm: "Are you sure?"} %>
 <br>
 </li>
 <% end %>
