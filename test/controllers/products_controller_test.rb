@@ -118,15 +118,17 @@ describe ProductsController do
         # Arrange
         start_count = Product.all.count
         perform_login()
-        product_hash = {
-        product: {
-        name: "Markle Sparkle Princess Dress",
-        price: 50.00,
-        stock: 5,
-        description: "it's a black dress for your fancy pet",
-        photo: nil,
-        retire: false,
-        }}      
+        
+        product_hash = product: {
+            name: "Markle Sparkle Princess Dress",
+            price: 50.00,
+            stock: 5,
+            description: "it's a black dress for your fancy pet",
+            photo: nil,
+            retire: false,
+          }
+        }      
+        
         # Act
         post products_path, params: product_hash
         
@@ -188,12 +190,13 @@ describe ProductsController do
         @magician = products(:magician)
         perform_login
         update_hash = {
-        product: {
-        name: "Houdini",
-        price: 150.99,
-        stock: 12,
-        retire: true 
-        }}
+          product: {
+            name: "Houdini",
+            price: 150.99,
+            stock: 12,
+            retire: true 
+          }
+        }
         
         # Act
         patch product_path(@magician.id), params:update_hash
