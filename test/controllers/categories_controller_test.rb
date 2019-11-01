@@ -9,8 +9,8 @@ describe CategoriesController do
 
         # Act
         get category_path(puppy.id)
+        
         # Assert
-
         must_respond_with :success
       end
     end
@@ -79,6 +79,7 @@ describe CategoriesController do
             name: "elf"
           }
         }
+        
         # Act
         post categories_path, params: category_hash
 

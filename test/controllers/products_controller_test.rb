@@ -26,7 +26,7 @@ describe ProductsController do
         must_respond_with :success 
       end
     end
-  end # end describe index block
+  end 
   
   
   describe "show" do 
@@ -74,7 +74,7 @@ describe ProductsController do
         must_redirect_to products_path
       end
     end
-  end #describe show block
+  end 
   
   describe "new" do 
     describe "while logged out" do 
@@ -145,6 +145,7 @@ describe ProductsController do
       it "redirects home if not logged in" do 
         # Arrange
         @magician = products(:magician)
+        
         #Act
         get edit_product_path(@magician.id)
       
@@ -205,7 +206,6 @@ describe ProductsController do
         @magician = Product.find_by(id: @magician.id)
         
         # Assert
-        
         @magician.name.must_equal "Houdini"
         @magician.price .must_equal 150.99
         @magician.stock.must_equal 12
@@ -227,4 +227,4 @@ describe ProductsController do
       end
     end 
   end 
-end #end Products controller
+end 
