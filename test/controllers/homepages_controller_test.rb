@@ -5,17 +5,33 @@ describe HomepagesController do
   #   value(1+1).must_equal 2
   # end
   
-  it "@products lists all products" do
-    expect(Product.all.count).must_equal @products.count
+  before do
+    @products = Product.all
+    @merchants = Merchant.all
+    @categories = Category.all
   end
   
-  it "@merchants lists all products" do
+  describe "index" do
+    it "can get the products path" do
+      get products_path
+      
+      must_respond_with :success
+    end
+    
+    it "can get the merchants path" do
+      get merchants_path
+      
+      must_respond_with :success
+    end
+    
+    it "can get the categories path" do
+      get categories_path
+      
+      must_respond_with :success
+    end
     
   end
-  
-  it "@categories lists all products" do
-    
-  end
-  
-  
+
 end
+  
+  
