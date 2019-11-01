@@ -48,10 +48,10 @@
 
 
 .navbar-brand
-    {
-			vertical-align: bottom;
-			font-size: 3em;
-		}
+  {
+		vertical-align: bottom;
+		font-size: 3em;
+	}
 		
 
 /*********************************
@@ -84,10 +84,18 @@ div
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-main{
+
+
+.flash 
+{
+	margin-top: 3em;
+}
+
+main
+	{
 	margin-left: 2em;
 	margin-right: 2em;
-}
+	}
 ul
 {
 	list-style: none;
